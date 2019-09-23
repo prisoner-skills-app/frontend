@@ -90,6 +90,9 @@ const NavBar = ({ children }) => {
                     <Menu.Item as={Link} to="/" header>
                         Prisoner Skills
                     </Menu.Item>
+                    <Menu.Item as={Link} to="/candidates">
+                        Candidates
+                    </Menu.Item>
                     <Menu.Item>About Us</Menu.Item>
                     <Menu.Item>Contact Us</Menu.Item>
                     <Menu.Menu position="right">
