@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { withFormik, Form, Field } from "formik";
-import { Button } from "semantic-ui-react";
+import styled from "styled-components"
+import { Form as SemanticForm, Button } from "semantic-ui-react";
 import { string, object } from "yup";
 import axios from "axios";
 
+const Stretch = styled.div`
+display:flex;
+flex-direction:column;
+width:345px;
 
+
+`;
 
 const App = ({ values, errors, touched, isSubmitting, status }) => {
   const [users, setUsers] = useState([]);
@@ -17,23 +24,43 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
 
   return (
     //"name" is used by Formik as unique identifier for field values
-
+    
+    
+    <SemanticForm>      
     <Form>
-      
+      <Stretch>
       <div>
-        {touched.password && errors.password && <p>{errors.password}</p>}
-
+        {touched.email && errors.email && <p>
+          {errors.email}</p>}
+       <p>Email</p>
         <Field
           type="email"
           name="email"
           placeholder="email@.com"
           value={values.email}
+            />
+    
+      </div>
+        
+
+      <div> 
+            
+            {touched.password && errors.password && <p>{errors.password}</p>}
+            
+        <p>Password</p>
+        <Field
+          type="password"
+          name="password"
+          placeholder="password"
+          value={values.password}
+          autoComplete="password"
         />
       </div>
-
+          
       <div>
-        {touched.email && errors.email && <p>{errors.email}</p>}
-
+            {touched.password && errors.password && <p>{errors.password}</p>}
+            
+        <p>Confirm Password</p>
         <Field
           type="password"
           name="password"
@@ -43,24 +70,16 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
         />
       </div>
 
+
+
       <Field component="select" name="selectChoice">
         <option value="Yes to terms">Agree</option>
         <option value="No to terms">Disagree</option>
-      </Field>
-
-      <label>
-        <Field type="checkbox" name="terms" checked={values.terms} />
-      </label>
-
-      <Button
-        class="ui button active"
-        class="ui button active"
-        disabled={isSubmitting}
-        type="signup"
-      >
-        Sign up
-      </Button>
+          </Field>   
+       <Button color="green">Sign Up</Button>    
+    </Stretch>       
     </Form>
+    </SemanticForm>
   );
 };
 
@@ -81,7 +100,7 @@ const SignUp = withFormik({
       .email()
       .required(),
     password: string()
-      .min(7)
+      .min(8)
       .required()
   }),
 
