@@ -26,6 +26,7 @@ const NavBar = ({ children }) => {
                 text
                 vertical
                 fluid
+                fixed="top"
                 size="massive"
                 style={{
                     textAlign: 'center',
@@ -33,30 +34,57 @@ const NavBar = ({ children }) => {
                     backgroundColor: 'white',
                 }}
             >
-                <Menu.Item as={Link} to="/" content="Home" />
+                <Menu.Item
+                    as={Link}
+                    to="/"
+                    content="Home"
+                    onClick={() => setVisible(false)}
+                />
                 <Menu.Item
                     as={Link}
                     to="/candidates"
                     content="Explore Candidates"
+                    onClick={() => setVisible(false)}
                 />
-                <Menu.Item as={Link} to="/prisons" content="Explore Prisons" />
-                <Menu.Item as={Link} to="/" content="Contact Us" />
-                <Menu.Item as={Link} to="/" content="About Us" />
+                <Menu.Item
+                    as={Link}
+                    to="/prisons"
+                    content="Explore Prisons"
+                    onClick={() => setVisible(false)}
+                />
+                <Menu.Item
+                    as={Link}
+                    to="/"
+                    content="Contact Us"
+                    onClick={() => setVisible(false)}
+                />
+                <Menu.Item
+                    as={Link}
+                    to="/"
+                    content="About Us"
+                    onClick={() => setVisible(false)}
+                />
                 {true ? (
-                    <Menu.Item as={Link} to="/me" content="My Account" />
+                    <Menu.Item
+                        as={Link}
+                        to="/me"
+                        content="My Account"
+                        onClick={() => setVisible(false)}
+                    />
                 ) : (
                     <Menu.Item
                         as={Link}
                         to="/login"
                         content="Login / Sign Up"
+                        onClick={() => setVisible(false)}
                     />
                 )}
             </Sidebar>
-            <Sidebar.Pusher style={{ height: '100vh' }}>
+            <Sidebar.Pusher style={{ height: '100vh', paddingTop: 42 }}>
                 {/* Desktop */}
                 <Responsive
                     as={Menu}
-                    attached="top"
+                    fixed="top"
                     minWidth={Responsive.onlyTablet.minWidth}
                 >
                     <Menu.Item as={Link} to="/" header>
@@ -72,7 +100,7 @@ const NavBar = ({ children }) => {
                 {/* Mobile */}
                 <Responsive
                     as={Menu}
-                    attached="top"
+                    fixed="top"
                     maxWidth={Responsive.onlyMobile.maxWidth}
                 >
                     <Menu.Item header>Prisoner Skills</Menu.Item>
