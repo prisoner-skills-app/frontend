@@ -31,14 +31,16 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
   return (
     //"name" is used by Formik as unique identifier for field values
     
-    
-    <SemanticForm>      
+      
+  
+    <SemanticForm>         
     <Form>
       <Stretch>
       <div>
         {touched.email && errors.email && <p>
-          {errors.email}</p>}
-       <p>Email</p>
+              {errors.email}</p>}
+            <h2>Sign Up</h2>
+       <strong><p>Email</p></strong>
         <Field
           type="email"
           name="email"
@@ -53,7 +55,7 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
             
             {touched.password && errors.password && <p>{errors.password}</p>}
             
-        <p>Password</p>
+        <strong><p>Password</p></strong>
         <Field
           type="password"
           name="password"
@@ -66,7 +68,7 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
       <div>
             {touched.password && errors.password && <p>{errors.password}</p>}
             
-        <p>Confirm Password</p>
+        <strong><p>Confirm Password</p></strong>
         <Field
           type="password"
           name="password"
