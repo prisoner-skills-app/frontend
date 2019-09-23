@@ -23,8 +23,36 @@ const NavBar = ({ children }) => {
                 visible={visible}
                 direction="top"
                 onHide={() => setVisible(false)}
-            ></Sidebar>
-            <Sidebar.Pusher>
+                text
+                vertical
+                fluid
+                size="massive"
+                style={{
+                    textAlign: 'center',
+                    padding: 40,
+                    backgroundColor: 'white',
+                }}
+            >
+                <Menu.Item as={Link} to="/" content="Home" />
+                <Menu.Item
+                    as={Link}
+                    to="/candidates"
+                    content="Explore Candidates"
+                />
+                <Menu.Item as={Link} to="/prisons" content="Explore Prisons" />
+                <Menu.Item as={Link} to="/" content="Contact Us" />
+                <Menu.Item as={Link} to="/" content="About Us" />
+                {true ? (
+                    <Menu.Item as={Link} to="/me" content="My Account" />
+                ) : (
+                    <Menu.Item
+                        as={Link}
+                        to="/login"
+                        content="Login / Sign Up"
+                    />
+                )}
+            </Sidebar>
+            <Sidebar.Pusher style={{ height: '100vh' }}>
                 {/* Desktop */}
                 <Responsive
                     as={Menu}
