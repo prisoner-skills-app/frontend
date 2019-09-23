@@ -3,6 +3,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 //Components
 import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Header } from 'semantic-ui-react';
 
 //Custom Components
 
@@ -13,7 +14,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 const App = () => {
     return (
         <div>
-            <h1>Prisoner Skills</h1>
+            <Header as="h1" content="Prisoner Skills" />
         </div>
     );
 };
