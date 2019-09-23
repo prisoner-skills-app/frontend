@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
 
 //Custom Components
+import { NavBar } from '../../components';
 
 //State
 import { useStateValue } from '../../state';
@@ -26,19 +27,24 @@ const SignUp = () => <h1>Onboarding</h1>;
 const App = () => {
     return (
         <BrowserRouter>
-            <Header as="h1" content="Prisoner Skills" />
-            <Switch>
-                <PrivateRoute path="/me" component={UserAccount} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/onboarding" component={SignUp} />
-                <Route exact path="/candidates" component={AllCandidates} />
-                <Route exact path="/prisons" component={AllPrisons} />
-                <Route
-                    path="/:prison-name/:candidate-id"
-                    component={CandidateProfile}
-                />
-                <Route exact path="/:prison-name" component={PrisonProfile} />
-            </Switch>
+            <NavBar>
+                <Switch>
+                    <PrivateRoute path="/me" component={UserAccount} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/onboarding" component={SignUp} />
+                    <Route exact path="/candidates" component={AllCandidates} />
+                    <Route exact path="/prisons" component={AllPrisons} />
+                    <Route
+                        path="/:prison-name/:candidate-id"
+                        component={CandidateProfile}
+                    />
+                    <Route
+                        exact
+                        path="/:prison-name"
+                        component={PrisonProfile}
+                    />
+                </Switch>
+            </NavBar>
         </BrowserRouter>
     );
 };
