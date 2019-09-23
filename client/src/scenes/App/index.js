@@ -12,8 +12,10 @@ import { useStateValue } from '../../state';
 
 //Styled Components CSS
 
+//Scenes
+import UserAccount from '../User';
+
 //Dumby Components for Routes
-const UserAccount = () => <h1>User (Prison) Account</h1>;
 const AllCandidates = () => <h1>All Candidates</h1>;
 const AllPrisons = () => <h1>All Prisons</h1>;
 const PrisonProfile = () => <h1>Prison Profile Route</h1>;
