@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 //Components
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
+import { SignUp } from '../../components';
 
 //Custom Components
 
@@ -13,8 +14,10 @@ import { Header } from 'semantic-ui-react';
 
 const App = () => {
     return (
+        
         <div>
             <Header as="h1" content="Prisoner Skills" />
+            <SignUp />
         </div>
     );
 };
