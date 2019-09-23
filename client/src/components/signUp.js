@@ -9,8 +9,14 @@ const Stretch = styled.div`
 display:flex;
 flex-direction:column;
 width:345px;
+`;
 
-
+const BTN = styled.button`
+width:92px;
+height:38px;
+margin-top:10px;
+color:white;
+background-color:green;
 `;
 
 const App = ({ values, errors, touched, isSubmitting, status }) => {
@@ -51,7 +57,7 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
         <Field
           type="password"
           name="password"
-          placeholder="password"
+          placeholder="Password"
           value={values.password}
           autoComplete="password"
         />
@@ -64,20 +70,15 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
         <Field
           type="password"
           name="password"
-          placeholder="password"
+          placeholder="Confirm password"
           value={values.password}
-          autoComplete="password"
+          autoComplete="Confirm password"
         />
-      </div>
-
-
-
-      <Field component="select" name="selectChoice">
-        <option value="Yes to terms">Agree</option>
-        <option value="No to terms">Disagree</option>
-          </Field>   
-       <Button color="green">Sign Up</Button>    
-    </Stretch>       
+      </div>             
+      </Stretch>
+        <BTN>
+          Sign Up
+        </BTN>      
     </Form>
     </SemanticForm>
   );
