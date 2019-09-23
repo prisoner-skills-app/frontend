@@ -8,6 +8,7 @@ import { Header } from 'semantic-ui-react';
 //Custom Components
 
 //State
+import { useStateValue } from '../../state';
 
 //Styled Components CSS
 
