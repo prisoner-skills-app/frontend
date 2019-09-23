@@ -37,10 +37,11 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
     <Form>
       <Stretch>
       <div>
-        {touched.email && errors.email && <p>
-              {errors.email}</p>}
+        
             <h2>Sign Up</h2>
-       <strong><p>Email</p></strong>
+            <strong><p>Email</p></strong>
+            {touched.email && errors.email && <p>
+              {errors.email}</p>}
         <Field
           type="email"
           name="email"
@@ -53,9 +54,10 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
 
       <div> 
             
-            {touched.password && errors.password && <p>{errors.password}</p>}
             
-        <strong><p>Password</p></strong>
+            
+            <strong><p>Password</p></strong>
+            {touched.password && errors.password && <p>{errors.password}</p>}
         <Field
           type="password"
           name="password"
@@ -66,9 +68,9 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
       </div>
           
       <div>
-            {touched.password && errors.password && <p>{errors.password}</p>}
             
-        <strong><p>Confirm Password</p></strong>
+            <strong><p>Confirm Password</p></strong>            
+            {touched.password && errors.password && <p>{errors.password}</p>}
         <Field
           type="password"
           name="password"
