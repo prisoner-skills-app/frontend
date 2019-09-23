@@ -80,7 +80,9 @@ const NavBar = ({ children }) => {
                     />
                 )}
             </Sidebar>
-            <Sidebar.Pusher style={{ height: '100vh', paddingTop: 42 }}>
+            <Sidebar.Pusher
+                style={{ height: '100vh', paddingTop: 42, overflow: 'scroll' }}
+            >
                 {/* Desktop */}
                 <Responsive
                     as={Menu}
