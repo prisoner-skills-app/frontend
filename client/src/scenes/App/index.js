@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 
 //Components
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
 
 //Custom Components
@@ -14,10 +14,21 @@ import { useStateValue } from '../../state';
 
 const App = () => {
     return (
-        <div>
+        <BrowserRouter>
             <Header as="h1" content="Prisoner Skills" />
-        </div>
+        </BrowserRouter>
     );
 };
 
 export default App;
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                true ? <Component {...props} /> : <Redirect to="/me" />
+            }
+        />
+    );
+};
