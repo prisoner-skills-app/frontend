@@ -93,7 +93,9 @@ const NavBar = ({ children }) => {
                     <Menu.Item>About Us</Menu.Item>
                     <Menu.Item>Contact Us</Menu.Item>
                     <Menu.Menu position="right">
-                        <Menu.Item>Login / Sign Up</Menu.Item>
+                        <Menu.Item as={Link} to="/login">
+                            Login / Sign Up
+                        </Menu.Item>
                     </Menu.Menu>
                 </Responsive>
 
