@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { medium } from '../../../globals/styles.js';
+import { small } from '../../../globals/styles.js';
 
 //Components
-import { ColumnContainer } from '../../../globals/components';
+import { ColumnContainer, RowContainer } from '../../../globals/components';
 import { Card } from 'semantic-ui-react';
+import { Route, Link } from 'react-router-dom';
 
 //Dummy Components
 const Header = () => <h1>Header</h1>;
 const Prisoners = () => <h1>Prisoners</h1>;
+const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
 
 //Styled Components
 const CandidatesContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    padding: ${medium};
+    padding: ${small};
+    width: ${props => props.size || '100%'};
 `;
 
 const PrisonProfile = ({
@@ -29,6 +32,7 @@ const PrisonProfile = ({
     const [prison, setPrison] = useState([]);
 
     useEffect(() => {
+        setIsLoading(true);
         //let prisonId = location.pathname;
         //let url = `api/prions/${prisonId}`;
         let url = 'https://my.api.mockaroo.com/users.json?key=ee167170';
@@ -52,21 +56,35 @@ const PrisonProfile = ({
     return (
         <ColumnContainer>
             <Header title={prisonName} />
-            <CandidatesContainer>
-                {isLoading ? (
-                    <h1>Loading</h1>
-                ) : (
-                    prison.map(candidate => {
-                        return (
-                            <Card
-                                header={`${candidate.first_name} ${candidate.last_name}`}
-                                description={candidate.description}
-                                meta={candidate.skills}
-                            />
-                        );
-                    })
-                )}
-            </CandidatesContainer>
+            <RowContainer>
+                <CandidatesContainer
+                    size={
+                        location.pathname.indexOf('/', 3) !== -1
+                            ? '50%'
+                            : '100%'
+                    }
+                >
+                    {isLoading ? (
+                        <h1>Loading</h1>
+                    ) : (
+                        prison.map((candidate, index) => {
+                            return (
+                                <Link to={`${match.url}/${index}`}>
+                                    <Card
+                                        header={`${candidate.first_name} ${candidate.last_name}`}
+                                        description={candidate.description}
+                                        meta={candidate.skills}
+                                    />
+                                </Link>
+                            );
+                        })
+                    )}
+                </CandidatesContainer>
+                <Route
+                    path="/:prison/:candidate"
+                    component={CandidateProfile}
+                />
+            </RowContainer>
         </ColumnContainer>
     );
 };
