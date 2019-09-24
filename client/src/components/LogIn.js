@@ -24,45 +24,43 @@ const Login = ({ values, errors, touched, status }) => {
         }
     }, [status, users]);
     return (
-        <SemanticForm>
-            <Form>
-                <Stretch>
-                    <div>
-                        <h2>Login</h2>
-                        <strong>
-                            <p>Email</p>
-                        </strong>
-                        {touched.email && errors.email && <p>{errors.email}</p>}
-                        <Field
-                            type="email"
-                            name="email"
-                            placeholder="email@.com"
-                            value={values.email}
-                        />
-                    </div>
+        <SemanticForm as={Form}>
+            <Stretch>
+                <div>
+                    <h2>Login</h2>
+                    <strong>
+                        <p>Email</p>
+                    </strong>
+                    {touched.email && errors.email && <p>{errors.email}</p>}
+                    <Field
+                        type="email"
+                        name="email"
+                        placeholder="email@.com"
+                        value={values.email}
+                    />
+                </div>
 
-                    <div>
-                        <strong>
-                            <p>Password</p>
-                        </strong>
-                        {touched.password && errors.password && (
-                            <p>{errors.password}</p>
-                        )}
-                        <Field
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={values.password}
-                            autoComplete="password"
-                        />
-                    </div>
-                </Stretch>
-                <SemanticForm.Button
-                    content="Login"
-                    color="blue"
-                    style={{ marginTop: 5 }}
-                />
-            </Form>
+                <div>
+                    <strong>
+                        <p>Password</p>
+                    </strong>
+                    {touched.password && errors.password && (
+                        <p>{errors.password}</p>
+                    )}
+                    <Field
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={values.password}
+                        autoComplete="password"
+                    />
+                </div>
+            </Stretch>
+            <SemanticForm.Button
+                content="Login"
+                color="blue"
+                style={{ marginTop: 5 }}
+            />
         </SemanticForm>
     );
 };

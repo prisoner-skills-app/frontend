@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Form as SemanticForm, Button } from 'semantic-ui-react';
 import * as Yup from 'yup';
@@ -31,62 +32,60 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
     return (
         //"name" is used by Formik as unique identifier for field values
 
-        <SemanticForm>
-            <Form>
-                <Stretch>
-                    <div>
-                        <h2>Sign Up</h2>
-                        <strong>
-                            <p>Email</p>
-                        </strong>
-                        {touched.email && errors.email && <p>{errors.email}</p>}
-                        <Field
-                            type="email"
-                            name="email"
-                            placeholder="email@.com"
-                            value={values.email}
-                        />
-                    </div>
+        <SemanticForm as={Form}>
+            <Stretch>
+                <div>
+                    <h2>Sign Up</h2>
+                    <strong>
+                        <p>Email</p>
+                    </strong>
+                    {touched.email && errors.email && <p>{errors.email}</p>}
+                    <Field
+                        type="email"
+                        name="email"
+                        placeholder="email@.com"
+                        value={values.email}
+                    />
+                </div>
 
-                    <div>
-                        <strong>
-                            <p>Password</p>
-                        </strong>
-                        {touched.password && errors.password && (
-                            <p>{errors.password}</p>
-                        )}
-                        <Field
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={values.password}
-                            autoComplete="password"
-                        />
-                    </div>
+                <div>
+                    <strong>
+                        <p>Password</p>
+                    </strong>
+                    {touched.password && errors.password && (
+                        <p>{errors.password}</p>
+                    )}
+                    <Field
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={values.password}
+                        autoComplete="password"
+                    />
+                </div>
 
-                    <div>
-                        <strong>
-                            <p>Confirm Password</p>
-                        </strong>
-                        {touched.passwordConfirm && errors.passwordConfirm && (
-                            <p>{errors.passwordConfirm}</p>
-                        )}
-                        <Field
-                            type="password"
-                            name="passwordConfirm"
-                            placeholder="Confirm password"
-                            value={values.passwordConfirm}
-                            autoComplete="Confirm password"
-                        />
-                    </div>
-                </Stretch>
-                <BTN>Sign Up</BTN>
-            </Form>
+                <div>
+                    <strong>
+                        <p>Confirm Password</p>
+                    </strong>
+                    {touched.passwordConfirm && errors.passwordConfirm && (
+                        <p>{errors.passwordConfirm}</p>
+                    )}
+                    <Field
+                        type="password"
+                        name="passwordConfirm"
+                        placeholder="Confirm password"
+                        value={values.passwordConfirm}
+                        autoComplete="Confirm password"
+                    />
+                </div>
+            </Stretch>
+            <BTN>Sign Up</BTN>
         </SemanticForm>
     );
 };
 
-function equalTo(ref,msg) {
+function equalTo(ref, msg) {
     return Yup.mixed().test({
         name: 'equalTo',
         exclusive: false,
@@ -124,13 +123,18 @@ const SignUp = withFormik({
             .required('Required'),
     }),
 
-    handleSubmit(values, { resetForm, setStatus, setErrors, setSubmitting }) {
+    handleSubmit(
+        values,
+        { props, resetForm, setStatus, setErrors, setSubmitting }
+    ) {
         axios
-            .post('#', values)
-
+            .post(
+                'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/register',
+                { email: values.email, password: values.password }
+            )
             .then(response => {
-                setStatus(response.data);
                 console.log(response);
+                console.log(props);
             })
             .catch(error => {
                 console.log(error.response);
@@ -148,4 +152,4 @@ const SignUp = withFormik({
     },
 })(App);
 
-export default SignUp;
+export default withRouter(SignUp);
