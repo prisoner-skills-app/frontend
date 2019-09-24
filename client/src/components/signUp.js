@@ -86,7 +86,7 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
     );
 };
 
-function equalTo(ref: any, msg: any) {
+function equalTo(ref,msg) {
     return Yup.mixed().test({
         name: 'equalTo',
         exclusive: false,
@@ -94,7 +94,7 @@ function equalTo(ref: any, msg: any) {
         params: {
             reference: ref.path,
         },
-        test: function(value: any) {
+        test: function(value) {
             return value === this.resolve(ref);
         },
     });
