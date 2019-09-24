@@ -4,11 +4,8 @@ import 'semantic-ui-css/semantic.min.css';
 //Components
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
-<<<<<<< HEAD
 import { CreateNew } from '../../components';
-=======
 import { SignUp } from '../../components';
->>>>>>> 793638614287d714edf5775edf3c7a22b7462d0b
 
 //Custom Components
 import { NavBar } from '../../components';
@@ -31,12 +28,10 @@ const Login = () => <h1>Login / Sign up</h1>;
 
 const App = () => {
     return (
-<<<<<<< HEAD
         <div>
             <Header as="h1" content="Prisoner Skills" />
             <CreateNew />
         </div>
-=======
         <BrowserRouter>
             <NavBar>
                 <Switch>
@@ -57,7 +52,6 @@ const App = () => {
                 </Switch>
             </NavBar>
         </BrowserRouter>
->>>>>>> 793638614287d714edf5775edf3c7a22b7462d0b
     );
 };
 
