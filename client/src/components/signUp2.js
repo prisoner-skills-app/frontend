@@ -4,7 +4,7 @@ import { withFormik, Form, Field } from "formik";
 import { string, object } from "yup";
 import axios from "axios";
 import styled from "styled-components";
-import { Form as SemanticForm, Button } from "semantic-ui-react";
+import { Form as SemanticForm } from "semantic-ui-react";
 
 //Styled components
 const StyledForm = styled.div`
