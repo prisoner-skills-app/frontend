@@ -3,6 +3,7 @@ import { Formik, withFormik, Form, Field } from 'formik';
 import { Form as SForm, Button, Message } from 'semantic-ui-react';
 import * as Yup from 'yup';
 import axios from 'axios';
+import _ from 'lodash';
 
 const AccountSettings = ({
     errors,
@@ -13,7 +14,21 @@ const AccountSettings = ({
     setFieldValue,
 }) => {
     return (
-        <SForm>
+        <SForm as={Form} style={{ maxWidth: 450 }}>
+            {!_.isEmpty(
+                _.intersection(Object.keys(touched), Object.keys(errors))
+            ) && (
+                <Message
+                    icon="warning circle"
+                    header="There's some problems with the information below."
+                    negative
+                    list={_.intersection(
+                        Object.keys(touched),
+                        Object.keys(errors)
+                    ).map(key => errors[key])}
+                />
+            )}
+
             <SForm.Field>
                 <label>
                     Prison Name
@@ -61,6 +76,19 @@ const AccountSettings = ({
                     </label>
                 </SForm.Field>
             </SForm.Group>
+            <SForm.Group
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+            >
+                <Button content="Save Changes" color="green" />
+                <Button
+                    content="Cancel"
+                    color="red"
+                    basic
+                    onClick={() => {
+                        alert('cancelling');
+                    }}
+                />
+            </SForm.Group>
         </SForm>
     );
 };
@@ -106,8 +134,27 @@ const AccountSettingsForm = withFormik({
             .min(4, 'Your prison name cannot be less than 3 letters.'),
         phoneNumber: Yup.string()
             .required('You must have a phone number')
-            .min(),
+            .min(10, 'Your phone must be at least 10 digits'),
+        email: Yup.string()
+            .email('The email provided is not valid')
+            .required('You must provide an email'),
+        firstName: Yup.string().required('You must have a First Name'),
+        lastName: Yup.string().required('You mush have a Last Name'),
     }),
+
+    handleSubmit: function(values, { props, resetForm }) {
+        console.log('Submitting');
+        axios
+            .put(
+                `https://lsbw-liberated-skills.herokuapp.com/api/centers/id/profile`,
+                { values }
+            )
+            .then(res => {
+                console.log(res.data);
+                props.userCreated(res.data);
+                resetForm();
+            });
+    },
 })(AccountSettings);
 
 export default AccountSettingsForm;
