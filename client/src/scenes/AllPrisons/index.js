@@ -9,6 +9,7 @@ const Header = () => <h1>Header</h1>;
 const PrisonTable = () => <h1>Prison Table</h1>;
 
 const AllPrisons = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [prisons, setPrisons] = useState([]);
 
     useEffect(() => {
@@ -22,8 +23,12 @@ const AllPrisons = () => {
                 }
                 console.log(res);
                 setPrisons(res.data);
+                setIsLoading(false);
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                setIsLoading(false);
+            });
     }, []);
 
     return (
