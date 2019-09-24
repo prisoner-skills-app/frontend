@@ -1,4 +1,3 @@
-import signUp from "./signUp"
-
+import signUp from './SignUp';
 
 export const SignUp = signUp;
