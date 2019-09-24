@@ -24,7 +24,8 @@ const AllCandidates = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        let url = 'https://my.api.mockaroo.com/users.json?key=ee167170';
+        let url =
+            'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/candidates';
 
         axios
             .get(url)
@@ -32,6 +33,7 @@ const AllCandidates = () => {
                 if (res.status !== 200) {
                     throw new Error('Call to candidates failed');
                 }
+                console.log(res);
                 setCandidates(res.data);
                 setIsLoading(false);
             })
@@ -51,8 +53,8 @@ const AllCandidates = () => {
                     candidates.map(candidate => {
                         return (
                             <Card
-                                header={`${candidate.first_name} ${candidate.last_name}`}
-                                description={candidate.description}
+                                header={candidate.name}
+                                description={candidate.description || ''}
                                 meta={candidate.skills}
                             />
                         );
