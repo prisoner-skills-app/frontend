@@ -27,7 +27,6 @@ const App = () => {
     return (
         <BrowserRouter>
             <NavBar>
-                <OnboardingForm />
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
                     <Route exact path="/login" component={Login} />
