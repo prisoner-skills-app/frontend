@@ -3,7 +3,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 //Components
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
-import { Header } from 'semantic-ui-react';
+import { Header } from '../../components';
 import { SignUp } from '../../components';
 
 //Custom Components
