@@ -18,10 +18,9 @@ import { useStateValue } from '../../state';
 import UserAccount from '../User';
 import AllCandidates from '../AllCandidates';
 import AllPrisons from '../AllPrisons';
+import PrisonProfile from '../Public/Prison';
 
 //Dumby Components for Routes
-const PrisonProfile = () => <h1>Prison Profile Route</h1>;
-const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
 const Login = () => <h1>Login / Sign up</h1>;
 
 const App = () => {
@@ -34,11 +33,7 @@ const App = () => {
                     <Route exact path="/onboarding" component={SignUp} />
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
-                    <Route
-                        path="/:prison/:candidate"
-                        component={CandidateProfile}
-                    />
-                    <Route exact path="/:prison" component={PrisonProfile} />
+                    <Route path="/:prison" component={PrisonProfile} />
                 </Switch>
             </NavBar>
         </BrowserRouter>
