@@ -6,7 +6,13 @@ import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
 
 //Custom Components
-import { NavBar, SignUp, LogIn, OnboardingForm } from '../../components';
+import {
+    NavBar,
+    SignUp,
+    LogIn,
+    OnboardingForm,
+    AccountSettingsForm,
+} from '../../components';
 
 //State
 import { useStateValue } from '../../state';
@@ -27,6 +33,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <NavBar>
+                <AccountSettingsForm />
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
                     <Route exact path="/login" component={LoginSignup} />
