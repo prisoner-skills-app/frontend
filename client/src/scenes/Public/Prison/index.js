@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 //Components
-import { ColumnContainer } from '../../globals/components';
+import { ColumnContainer } from '../../../globals/components';
 
 //Dummy Components
 const Header = () => <h1>Header</h1>;
-const PrisonTable = () => <h1>Prison Table</h1>;
+const Prisoners = () => <h1>Prisoners</h1>;
 
-const AllPrisons = () => {
+const PrisonProfile = ({ location, history, match }) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [prisons, setPrisons] = useState([]);
+    const [prison, setPrison] = useState({});
 
     useEffect(() => {
-        let url = '';
+        let prisonId = location.pathname;
+        let url = `api/prions/${prisonId}`;
 
         axios
             .get(url)
@@ -22,7 +23,7 @@ const AllPrisons = () => {
                     throw new Error('did not fetch all prisons');
                 }
                 console.log(res);
-                setPrisons(res.data);
+                setPrison(res.data);
                 setIsLoading(false);
             })
             .catch(err => {
@@ -34,9 +35,9 @@ const AllPrisons = () => {
     return (
         <ColumnContainer>
             <Header />
-            <PrisonTable />
+            <Prisoners />
         </ColumnContainer>
     );
 };
 
-export default AllPrisons;
+export default PrisonProfile;
