@@ -5,16 +5,12 @@ import { medium, large } from '../../globals/styles';
 
 //Components
 import { Card } from 'semantic-ui-react';
+import { ColumnContainer } from '../../globals/components';
 
 //Custom Components
 const Header = () => <h1>Header</h1>;
 
 //Styled Components
-const AllCandidatesContainer = styled.div`
-    display: flex;
-    flex-flow: column;
-`;
-
 const CandidatesContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
@@ -46,7 +42,7 @@ const AllCandidates = () => {
     }, []);
 
     return (
-        <AllCandidatesContainer>
+        <ColumnContainer>
             <Header />
             <CandidatesContainer>
                 {isLoading ? (
@@ -63,7 +59,7 @@ const AllCandidates = () => {
                     })
                 )}
             </CandidatesContainer>
-        </AllCandidatesContainer>
+        </ColumnContainer>
     );
 };
 

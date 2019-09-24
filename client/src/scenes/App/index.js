@@ -17,9 +17,9 @@ import { useStateValue } from '../../state';
 //Scenes
 import UserAccount from '../User';
 import AllCandidates from '../AllCandidates';
+import AllPrisons from '../AllPrisons';
 
 //Dumby Components for Routes
-const AllPrisons = () => <h1>All Prisons</h1>;
 const PrisonProfile = () => <h1>Prison Profile Route</h1>;
 const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
 const Login = () => <h1>Login / Sign up</h1>;
