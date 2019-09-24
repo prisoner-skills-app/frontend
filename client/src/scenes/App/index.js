@@ -18,6 +18,7 @@ import UserAccount from '../User';
 import AllCandidates from '../AllCandidates';
 import AllPrisons from '../AllPrisons';
 import PrisonProfile from '../Public/Prison';
+import LoginSignup from '../LoginSignup';
 
 //Dumby Components for Routes
 const Login = () => <h1>Login / Sign up</h1>;
@@ -28,7 +29,7 @@ const App = () => {
             <NavBar>
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
-                    <Route exact path="/login" component={LogIn} />
+                    <Route exact path="/login" component={LoginSignup} />
                     <Route exact path="/onboarding" component={SignUp} />
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
