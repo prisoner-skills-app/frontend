@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
 import { SignUp } from '../../components';
-
+import { LogIn } from "../../components";
 //Custom Components
 import { NavBar } from '../../components';
 
@@ -31,7 +31,7 @@ const App = () => {
             <NavBar>
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
-                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/login" component={LogIn} />
                     <Route exact path="/onboarding" component={SignUp} />
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
