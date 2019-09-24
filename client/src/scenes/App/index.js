@@ -4,10 +4,9 @@ import 'semantic-ui-css/semantic.min.css';
 //Components
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
-import { SignUp, OnboardingForm } from '../../components';
 
 //Custom Components
-import { NavBar } from '../../components';
+import { NavBar, SignUp, LogIn, OnboardingForm } from '../../components';
 
 //State
 import { useStateValue } from '../../state';
@@ -29,7 +28,7 @@ const App = () => {
             <NavBar>
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
-                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/login" component={LogIn} />
                     <Route exact path="/onboarding" component={SignUp} />
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
