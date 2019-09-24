@@ -4,10 +4,9 @@ import 'semantic-ui-css/semantic.min.css';
 //Components
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
-import { SignUp } from '../../components';
-import { LogIn } from "../../components";
+
 //Custom Components
-import { NavBar } from '../../components';
+import { NavBar, SignUp, LogIn } from '../../components';
 
 //State
 import { useStateValue } from '../../state';
@@ -22,8 +21,6 @@ import AllCandidates from '../AllCandidates';
 const AllPrisons = () => <h1>All Prisons</h1>;
 const PrisonProfile = () => <h1>Prison Profile Route</h1>;
 const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
-const Login = () => <h1>Login / Sign up</h1>;
-
 
 const App = () => {
     return (
