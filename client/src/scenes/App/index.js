@@ -23,7 +23,7 @@ const AllPrisons = () => <h1>All Prisons</h1>;
 const PrisonProfile = () => <h1>Prison Profile Route</h1>;
 const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
 const Login = () => <h1>Login / Sign up</h1>;
-const SignUp = () => <h1>Onboarding</h1>;
+
 
 const App = () => {
     return (
