@@ -8,7 +8,12 @@ import { ColumnContainer } from '../../../globals/components';
 const Header = () => <h1>Header</h1>;
 const Prisoners = () => <h1>Prisoners</h1>;
 
-const PrisonProfile = ({ location, history, match }) => {
+const PrisonProfile = ({
+    prisonName = 'Corrections',
+    location,
+    history,
+    match,
+}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [prison, setPrison] = useState({});
 
@@ -34,7 +39,7 @@ const PrisonProfile = ({ location, history, match }) => {
 
     return (
         <ColumnContainer>
-            <Header />
+            <Header title={prisonName} />
             <Prisoners />
         </ColumnContainer>
     );
