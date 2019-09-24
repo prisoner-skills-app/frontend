@@ -124,7 +124,7 @@ const CreateNew = withFormik({
       selectOption: selectOption || ""
     };
   },
-
+//Validation schema
   validationSchema: object().shape({
     name: string()
       .min(5)
@@ -137,7 +137,8 @@ const CreateNew = withFormik({
     state: string()
       .required('State is required'),
   }),
-
+  
+// Submit button handling
   handleSubmit(values, { setEffect }) {
     axios
       .post("#", values)
