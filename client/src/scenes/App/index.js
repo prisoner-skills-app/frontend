@@ -6,13 +6,7 @@ import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
 
 //Custom Components
-import {
-    NavBar,
-    SignUp,
-    LogIn,
-    OnboardingForm,
-    AccountSettingsForm,
-} from '../../components';
+import { NavBar, SignUp, LogIn, AccountSettingsForm } from '../../components';
 
 //State
 import { useStateValue } from '../../state';
@@ -25,9 +19,7 @@ import AllCandidates from '../AllCandidates';
 import AllPrisons from '../AllPrisons';
 import PrisonProfile from '../Public/Prison';
 import LoginSignup from '../LoginSignup';
-
-//Dumby Components for Routes
-const Login = () => <h1>Login / Sign up</h1>;
+import Onboarding from '../Onboarding';
 
 const App = () => {
     return (
@@ -36,7 +28,7 @@ const App = () => {
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
                     <Route exact path="/login" component={LoginSignup} />
-                    <Route exact path="/onboarding" component={SignUp} />
+                    <Route exact path="/onboarding" component={Onboarding} />
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
                     <Route path="/:prison" component={PrisonProfile} />
