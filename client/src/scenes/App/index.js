@@ -35,14 +35,10 @@ const App = () => {
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
                     <Route
-                        path="/:prison-name/:candidate-id"
+                        path="/:prison/:candidate"
                         component={CandidateProfile}
                     />
-                    <Route
-                        exact
-                        path="/:prison-name"
-                        component={PrisonProfile}
-                    />
+                    <Route exact path="/:prison" component={PrisonProfile} />
                 </Switch>
             </NavBar>
         </BrowserRouter>
