@@ -33,7 +33,6 @@ const App = () => {
     return (
         <BrowserRouter>
             <NavBar>
-                <AccountSettingsForm />
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
                     <Route exact path="/login" component={LoginSignup} />
