@@ -6,6 +6,7 @@ import { useStateValue } from '../../state';
 //Components
 import { Route, Switch, Link } from 'react-router-dom';
 import { Button, Message } from 'semantic-ui-react';
+import { Header } from '../../components';
 
 //Custom Components
 import { ColumnContainer } from '../../globals/components';
@@ -16,7 +17,6 @@ import EditProfile from './EditProfile';
 import AllProfiles from './AllProfiles';
 
 //Dummby Routes
-const Header = () => <h1>User Profile Header</h1>;
 const Settings = () => <h1>Settings</h1>;
 
 const UserAccount = () => {
@@ -24,12 +24,16 @@ const UserAccount = () => {
 
     return (
         <ColumnContainer>
-            <Header />
-            <Button
-                as={Link}
-                to="/me/settings"
-                content="Settings"
-                color="blue"
+            <Header
+                title="Hunstville Corrections"
+                subtitle={
+                    <Link
+                        to="/me/settings"
+                        style={{ color: 'white', fontSize: '1.2em' }}
+                    >
+                        Settings
+                    </Link>
+                }
             />
             <Switch>
                 <Route exact path="/me" component={AllProfiles} />
