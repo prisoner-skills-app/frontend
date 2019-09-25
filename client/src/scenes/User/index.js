@@ -30,6 +30,7 @@ const UserAccount = ({ history }) => {
     return (
         <ColumnContainer>
             <Header
+                backButton
                 title="Hunstville Corrections"
                 subtitle={
                     <Link

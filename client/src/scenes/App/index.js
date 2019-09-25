@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 
 //Components
@@ -29,31 +29,46 @@ import Home from '../Home';
 
 const App = () => {
     const [{ user }, dispatch] = useStateValue();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (window.localStorage.getItem('token')) {
+        if (window.localStorage.getItem('user')) {
             dispatch({
                 type: 'set_user',
-                payload: {
-                    token: window.localStorage.getItem('token'),
-                    id: window.localStorage.getItem('id'),
-                },
+                payload: JSON.parse(window.localStorage.getItem('user')),
             });
         }
+        setLoading(false);
     }, []);
 
     return (
         <BrowserRouter>
             <NavBar>
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <PrivateRoute path="/me" component={UserAccount} />
-                    <Route exact path="/login" component={LoginSignup} />
-                    <Route exact path="/onboarding" component={Onboarding} />
-                    <Route exact path="/candidates" component={AllCandidates} />
-                    <Route exact path="/prisons" component={AllPrisons} />
-                    <Route path="/:prison" component={PrisonProfile} />
-                </Switch>
+                {loading ? (
+                    <h1>Loading</h1>
+                ) : (
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <PrivateRoute
+                            path="/me"
+                            component={UserAccount}
+                            user={user}
+                        />
+                        <Route exact path="/login" component={LoginSignup} />
+                        <Route
+                            exact
+                            path="/onboarding"
+                            component={Onboarding}
+                        />
+                        <Route
+                            exact
+                            path="/candidates"
+                            component={AllCandidates}
+                        />
+                        <Route exact path="/prisons" component={AllPrisons} />
+                        <Route path="/:prison" component={PrisonProfile} />
+                    </Switch>
+                )}
             </NavBar>
         </BrowserRouter>
     );
@@ -61,16 +76,12 @@ const App = () => {
 
 export default App;
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ user, component: Component, ...rest }) => {
     return (
         <Route
             {...rest}
             render={props =>
-                window.localStorage.getItem('token') ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to="/login" />
-                )
+                user.token ? <Component {...props} /> : <Redirect to="/login" />
             }
         />
     );
