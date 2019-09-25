@@ -112,8 +112,10 @@ const LogIn = withFormik({
             )
             .then(response => {
                 if (response.status == 200) {
-                    window.localStorage.setItem('token', response.data.token);
-                    window.localStorage.setItem('user_id', response.data.id);
+                    window.localStorage.setItem(
+                        'user',
+                        JSON.stringify(response.data)
+                    );
                     props.dispatch({
                         type: 'set_user',
                         payload: response.data,

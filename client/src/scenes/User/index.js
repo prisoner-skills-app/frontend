@@ -15,17 +15,15 @@ import { ColumnContainer } from '../../globals/components';
 import CreateProfile from './CreateProfile';
 import EditProfile from './EditProfile';
 import AllProfiles from './AllProfiles';
-
-//Dummby Routes
-const Settings = () => <h1>Settings</h1>;
+import Settings from './Settings';
 
 const UserAccount = ({ history }) => {
     const [{ user, candidates }, dispatch] = useStateValue();
 
     //Redirect to onboarding if profile is incomplete
-    // if (!user.profileComplete) {
-    //     history.push('/onboarding');
-    // }
+    if (!user.profileComplete) {
+        history.push('/onboarding');
+    }
 
     return (
         <ColumnContainer>

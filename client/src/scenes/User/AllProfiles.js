@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { axiosWithAuth } from '../../hooks';
 import axios from 'axios';
 import styled from 'styled-components';
 import { small } from '../../globals/styles.js';
@@ -39,8 +40,8 @@ const AllProfiles = ({
         setIsLoading(true);
         //let prisonId = location.pathname;
         //let url = `api/prions/${prisonId}`;
-        let url = 'https://my.api.mockaroo.com/users.json?key=ee167170';
 
+        let url = `https://lsbw-liberated-skills.herokuapp.com/api/centers/${user.id}`;
         axios
             .get(url)
             .then(res => {
@@ -48,7 +49,10 @@ const AllProfiles = ({
                     throw new Error('did not fetch all prisons');
                 }
                 console.log(res);
-                setPrison(res.data);
+                dispatch({
+                    type: 'set_user_candidates',
+                    payload: res.data.persons,
+                });
                 setIsLoading(false);
             })
             .catch(err => {
@@ -82,7 +86,7 @@ const AllProfiles = ({
                     {isLoading ? (
                         <h1>Loading</h1>
                     ) : (
-                        prison.map((candidate, index) => {
+                        candidates.map((candidate, index) => {
                             return (
                                 <Link
                                     to={{
@@ -91,7 +95,7 @@ const AllProfiles = ({
                                     }}
                                 >
                                     <Card
-                                        header={`${candidate.first_name} ${candidate.last_name}`}
+                                        header={candidate.name}
                                         description={candidate.description}
                                         meta={candidate.skills}
                                     />

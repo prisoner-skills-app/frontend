@@ -2,16 +2,25 @@ import React from 'react';
 
 //State
 import { useStateValue } from '../../state';
+import { Button } from 'semantic-ui-react';
 
 //Dummy Components
-const Header = () => <h1>Settings</h1>;
 
-const Settings = ({}) => {
+const Settings = ({ history }) => {
     const [{ user }, dispatch] = useStateValue();
 
     return (
         <>
-            <Header />
+            <Button
+                content="Logout"
+                color="red"
+                onClick={() => {
+                    dispatch({
+                        type: 'logout_user',
+                    });
+                    history.replace('/');
+                }}
+            />
         </>
     );
 };
