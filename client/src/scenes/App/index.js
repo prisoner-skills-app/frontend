@@ -3,14 +3,15 @@ import 'semantic-ui-css/semantic.min.css';
 
 //Components
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
-import { Header } from 'semantic-ui-react';
 
 //Custom Components
-<<<<<<< HEAD
-import { NavBar, SignUp, LogIn, OnboardingForm, NewProfile } from '../../components';
-=======
-import { NavBar, SignUp, LogIn, AccountSettingsForm } from '../../components';
->>>>>>> b465ee22338090e15c143bcee39cf27977f79ead
+import {
+    NavBar,
+    SignUp,
+    Header,
+    LogIn,
+    AccountSettingsForm,
+} from '../../components';
 
 //State
 import { useStateValue } from '../../state';

@@ -3,9 +3,9 @@ import axios from 'axios';
 
 //Components
 import { ColumnContainer } from '../../globals/components';
+import { Header } from '../../components';
 
 //Dummy Components
-const Header = () => <h1>Header</h1>;
 const PrisonTable = () => <h1>Prison Table</h1>;
 
 const AllPrisons = () => {
@@ -32,8 +32,8 @@ const AllPrisons = () => {
     }, []);
 
     return (
-        <ColumnContainer>
-            <Header />
+        <ColumnContainer align="stretch">
+            <Header title="All Prisons" />
             <PrisonTable />
         </ColumnContainer>
     );

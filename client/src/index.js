@@ -8,7 +8,7 @@ import { StateProvider } from './state';
 
 import reducer from './reducers';
 
-const initialState = {};
+const initialState = { user: {}, candidates: [] };
 
 ReactDOM.render(
     <StateProvider initialState={initialState} reducer={reducer}>
