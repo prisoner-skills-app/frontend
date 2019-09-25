@@ -5,16 +5,12 @@ import { medium, large } from '../../globals/styles';
 
 //Components
 import { Card } from 'semantic-ui-react';
+import { ColumnContainer } from '../../globals/components';
 
 //Custom Components
 const Header = () => <h1>Header</h1>;
 
 //Styled Components
-const AllCandidatesContainer = styled.div`
-    display: flex;
-    flex-flow: column;
-`;
-
 const CandidatesContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
@@ -28,7 +24,8 @@ const AllCandidates = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        let url = 'https://my.api.mockaroo.com/users.json?key=ee167170';
+        let url =
+            'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/candidates';
 
         axios
             .get(url)
@@ -36,6 +33,7 @@ const AllCandidates = () => {
                 if (res.status !== 200) {
                     throw new Error('Call to candidates failed');
                 }
+                console.log(res);
                 setCandidates(res.data);
                 setIsLoading(false);
             })
@@ -46,7 +44,7 @@ const AllCandidates = () => {
     }, []);
 
     return (
-        <AllCandidatesContainer>
+        <ColumnContainer>
             <Header />
             <CandidatesContainer>
                 {isLoading ? (
@@ -55,15 +53,15 @@ const AllCandidates = () => {
                     candidates.map(candidate => {
                         return (
                             <Card
-                                header={`${candidate.first_name} ${candidate.last_name}`}
-                                description={candidate.description}
+                                header={candidate.name}
+                                description={candidate.description || ''}
                                 meta={candidate.skills}
                             />
                         );
                     })
                 )}
             </CandidatesContainer>
-        </AllCandidatesContainer>
+        </ColumnContainer>
     );
 };
 

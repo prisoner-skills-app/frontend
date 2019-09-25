@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+//State
+import { useStateValue } from '../state';
+
 //Components
 import { Sidebar, Menu, Responsive, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -14,6 +17,7 @@ const MobileMenu = styled.div`
 
 const NavBar = ({ children }) => {
     const [visible, setVisible] = useState(false);
+    const [{ user }, dispatch] = useStateValue();
 
     return (
         <Sidebar.Pushable>
@@ -64,7 +68,7 @@ const NavBar = ({ children }) => {
                     content="About Us"
                     onClick={() => setVisible(false)}
                 />
-                {true ? (
+                {user ? (
                     <Menu.Item
                         as={Link}
                         to="/me"
@@ -95,12 +99,24 @@ const NavBar = ({ children }) => {
                     <Menu.Item as={Link} to="/candidates">
                         Candidates
                     </Menu.Item>
+                    <Menu.Item as={Link} to="/prisons">
+                        Prisons
+                    </Menu.Item>
+                    <Menu.Item as={Link} to="/corrections-facility">
+                        Prison 1 Test
+                    </Menu.Item>
                     <Menu.Item>About Us</Menu.Item>
                     <Menu.Item>Contact Us</Menu.Item>
                     <Menu.Menu position="right">
-                        <Menu.Item as={Link} to="/login">
-                            Login / Sign Up
-                        </Menu.Item>
+                        {user && user.token ? (
+                            <Menu.Item as={Link} to="/me">
+                                My Account
+                            </Menu.Item>
+                        ) : (
+                            <Menu.Item as={Link} to="/login">
+                                Login / Sign Up
+                            </Menu.Item>
+                        )}
                     </Menu.Menu>
                 </Responsive>
 

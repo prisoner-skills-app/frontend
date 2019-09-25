@@ -1,7 +1,13 @@
+import navBar from './Navbar';
+import logIn from './LogIn';
+import onboardingForm from './OnboardingForm';
 import header from './Header';
 import signUp from './SignUp';
-import navBar from './Navbar';
+import accountSettingsForm from './AccountSettingsForm';
 
-export const SignUp = signUp;
-export const Header = header;
 export const NavBar = navBar;
+export const LogIn = logIn;
+export const OnboardingForm = onboardingForm;
+export const Header = header;
+export const SignUp = signUp;
+export const AccountSettingsForm = accountSettingsForm;
