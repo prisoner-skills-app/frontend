@@ -16,8 +16,7 @@ export const Banner = styled.header.attrs(props => ({
     align: props.align || 'center',
     size: props.size || '1.5em',
 }))`
-    background-image: url('https://i.stack.imgur.com/Ip1XY.png'),
-        url('http://www.bara-art.com/wp-content/uploads/2016/07/building_roof.jpg');
+    background-image: url('http://www.bara-art.com/wp-content/uploads/2016/07/building_roof.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 

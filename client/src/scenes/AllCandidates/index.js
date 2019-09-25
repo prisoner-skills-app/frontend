@@ -8,7 +8,7 @@ import { Card } from 'semantic-ui-react';
 import { ColumnContainer } from '../../globals/components';
 
 //Custom Components
-const Header = () => <h1>Header</h1>;
+import { Header } from '../../components';
 
 //Styled Components
 const CandidatesContainer = styled.div`
@@ -44,8 +44,8 @@ const AllCandidates = () => {
     }, []);
 
     return (
-        <ColumnContainer>
-            <Header />
+        <ColumnContainer align="stretch">
+            <Header title="All Candidates" />
             <CandidatesContainer>
                 {isLoading ? (
                     <h1>Loading</h1>
