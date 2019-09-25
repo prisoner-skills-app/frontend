@@ -129,15 +129,6 @@ const LogIn = withFormik({
                 console.log(error);
                 setSubmitting(false);
             });
-
-        // setTimeout(() => {
-        //     if (values.email === 'luisocasio03@gmail.com') {
-        //         setErrors({ email: 'Email already in use' });
-        //     } else {
-        //         resetForm();
-        //     }
-        //     setSubmitting(false);
-        // }, 2000);
         console.log(values);
     },
 })(Login);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import { withRouter } from 'react-router-dom';
+import { withState } from '../state';
 import styled from 'styled-components';
 import {
     Form as SemanticForm,
@@ -132,7 +133,7 @@ const SignUp = withFormik({
         setSubmitting(true);
         axios
             .post(
-                'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/auth/register',
+                'https://lsbw-liberated-skills.herokuapp.com/api/auth/register',
                 { email: values.email, password: values.password }
             )
             .then(response => {
@@ -140,7 +141,14 @@ const SignUp = withFormik({
                 if (response.status !== 200) {
                     throw new Error(response.statusText);
                 }
-                window.localStorage.setItem('token', response.data.token);
+                window.localStorage.setItem(
+                    'user',
+                    JSON.stringify(response.data)
+                );
+                props.dispatch({
+                    type: 'set_user',
+                    payload: response.data,
+                });
                 props.history.push('/onboarding');
             })
             .catch(error => {
@@ -159,4 +167,4 @@ const SignUp = withFormik({
     },
 })(App);
 
-export default withRouter(SignUp);
+export default withState(withRouter(SignUp));

@@ -19,8 +19,13 @@ import AllProfiles from './AllProfiles';
 //Dummby Routes
 const Settings = () => <h1>Settings</h1>;
 
-const UserAccount = () => {
+const UserAccount = ({ history }) => {
     const [{ user, candidates }, dispatch] = useStateValue();
+
+    //Redirect to onboarding if profile is incomplete
+    // if (!user.profileComplete) {
+    //     history.push('/onboarding');
+    // }
 
     return (
         <ColumnContainer>

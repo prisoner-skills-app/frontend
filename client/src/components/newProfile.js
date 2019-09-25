@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import { string, object } from 'yup';
-import axios from 'axios';
+import { axiosWithAuth } from '../hooks';
 import styled from 'styled-components';
-import { Form as SemanticForm } from 'semantic-ui-react';
+import { Form as SemanticForm, Dimmer, Loader } from 'semantic-ui-react';
+import { withState } from '../state';
+import { withRouter } from 'react-router-dom';
 
 //Styled components
 const StyledForm = styled.div`
@@ -13,28 +15,22 @@ const StyledForm = styled.div`
     width: 100%;
 `;
 
-const BTN = styled.button`
-    width: 100px;
-    height: 40px;
-    margin-top: 10px;
-    color: white;
-    background-color: green;
-    margin: 0 auto;
-    position: relative;
-`;
-
-const App = ({ values, errors, touched, effect, handleSubmit }) => {
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-        if (effect) {
-            setUsers([...users, effect]);
-        }
-    }, [effect, users]);
-
+const App = ({
+    values,
+    errors,
+    touched,
+    effect,
+    isSubmitting,
+    handleSubmit,
+}) => {
     return (
         //Profile onboarding adn styling
         <SemanticForm as={Form} onSubmit={handleSubmit}>
+            {isSubmitting && (
+                <Dimmer active page>
+                    <Loader>Creating New Profile</Loader>
+                </Dimmer>
+            )}
             <StyledForm>
                 <div>
                     <h2>Create New Profile</h2>
@@ -94,16 +90,17 @@ const App = ({ values, errors, touched, effect, handleSubmit }) => {
                     <p>
                         <strong>Description</strong>
                     </p>
-                    {touched.desc && errors.desc && <p>{errors.desc}</p>}
-                    <textarea
-                        class="form-control w-100"
-                        name="message"
-                        id="message"
+                    {touched.description && errors.description && (
+                        <p>{errors.description}</p>
+                    )}
+                    <Field
+                        name="description"
                         cols="30"
                         rows="9"
                         placeholder="Enter Message"
                         value={values.message}
-                    ></textarea>
+                        component="textarea"
+                    />
                 </div>
                 <div>
                     <p>
@@ -116,23 +113,22 @@ const App = ({ values, errors, touched, effect, handleSubmit }) => {
                         checked={values.terms}
                     />
                 </div>
-                <SemanticForm.Button type="submit">
+                <SemanticForm.Button type="submit" color="green">
                     Create Profile
                 </SemanticForm.Button>
-                {/* <BTN>Edit Profile</BTN> */}
             </StyledForm>
         </SemanticForm>
     );
 };
 
 const CreateNew = withFormik({
-    mapPropsToValues({ name, skills, education, date, message, check }) {
+    mapPropsToValues({ name, skills, education, date, description, check }) {
         return {
             name: name || '',
             skills: skills || '',
             education: education || '',
             date: date || '',
-            message: message || '',
+            description: description || '',
             check: check || '',
         };
     },
@@ -146,23 +142,42 @@ const CreateNew = withFormik({
             .required('Skills is required'),
         education: string().required('Education is required'),
         date: string().required('Parole date is required'),
+        description: string().required('A description is required'),
     }),
 
     // Submit button handling
-    handleSubmit(values, { setEffect }) {
+    handleSubmit(values, { props, setSubmitting }) {
         console.log('hello!');
+        setSubmitting(true);
 
-        // axios
-        //     .post('#', values)
-        //
-        //     .then(response => {
-        //         setEffect(response.data);
-        //         console.log(response);
-        //     })
-        //     .catch(error => {
-        //         console.log(error.response);
-        //     });
+        axiosWithAuth()
+            .post('/candidates', {
+                name: values.name,
+                availability: 'today',
+                skills: values.skills,
+                description: values.description,
+                education: values.education,
+                paroleDate: values.date,
+            })
+
+            .then(response => {
+                console.log(response);
+
+                setSubmitting(false);
+
+                props.dispatch({
+                    type: 'update_candidates',
+                    payload: response.data,
+                });
+
+                props.history.push('/me');
+            })
+
+            .catch(error => {
+                console.log(error.response);
+                setSubmitting(false);
+            });
     },
 })(App);
 
-export default CreateNew;
+export default withState(withRouter(CreateNew));
