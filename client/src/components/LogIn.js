@@ -113,6 +113,7 @@ const LogIn = withFormik({
             .then(response => {
                 if (response.status == 200) {
                     window.localStorage.setItem('token', response.data.token);
+                    window.localStorage.setItem('user_id', response.data.id);
                     props.dispatch({
                         type: 'set_user',
                         payload: response.data,

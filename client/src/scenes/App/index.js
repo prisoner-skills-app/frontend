@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 
 //Components
@@ -22,6 +22,20 @@ import LoginSignup from '../LoginSignup';
 import Onboarding from '../Onboarding';
 
 const App = () => {
+    const [{ user }, dispatch] = useStateValue();
+
+    useEffect(() => {
+        if (window.localStorage.getItem('token')) {
+            dispatch({
+                type: 'set_user',
+                payload: {
+                    token: window.localStorage.getItem('token'),
+                    id: window.localStorage.getItem('id'),
+                },
+            });
+        }
+    }, []);
+
     return (
         <BrowserRouter>
             <NavBar>
