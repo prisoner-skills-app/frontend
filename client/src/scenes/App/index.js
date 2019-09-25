@@ -3,10 +3,15 @@ import 'semantic-ui-css/semantic.min.css';
 
 //Components
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
-import { Header, SignUp } from '../../components';
 
 //Custom Components
-import { NavBar, SignUp, LogIn, AccountSettingsForm } from '../../components';
+import {
+    NavBar,
+    SignUp,
+    Header,
+    LogIn,
+    AccountSettingsForm,
+} from '../../components';
 
 //State
 import { useStateValue } from '../../state';
@@ -39,7 +44,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <NavBar>
-                <Header/>
+                <Header />
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
                     <Route exact path="/login" component={LoginSignup} />
