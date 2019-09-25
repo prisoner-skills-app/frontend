@@ -130,22 +130,22 @@ const SignUp = withFormik({
     ) {
         console.log(props);
         setSubmitting(true);
-        // axios
-        //     .post(
-        //         'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/auth/register',
-        //         { email: values.email, password: values.password }
-        //     )
-        //     .then(response => {
-        //         console.log(response);
-        //         if (response.status !== 200) {
-        //             throw new Error(response.statusText);
-        //         }
-        //         window.localStorage.setItem('token', response.data.token);
-        //         props.history.push('/onboarding');
-        //     })
-        //     .catch(error => {
-        //         console.log(error.response);
-        //     });
+        axios
+            .post(
+                'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/auth/register',
+                { email: values.email, password: values.password }
+            )
+            .then(response => {
+                console.log(response);
+                if (response.status !== 200) {
+                    throw new Error(response.statusText);
+                }
+                window.localStorage.setItem('token', response.data.token);
+                props.history.push('/onboarding');
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
 
         setTimeout(() => {
             if (values.email === 'luisocasio03@gmail.com') {
