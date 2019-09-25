@@ -44,7 +44,12 @@ const App = () => {
     return (
         <BrowserRouter>
             <NavBar>
-                <Header />
+                <Header
+                    title={`Prisoner Skills believes in every prisoner's future.`}
+                    size="2.5em"
+                    direction="column"
+                    align="center"
+                />
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
                     <Route exact path="/login" component={LoginSignup} />

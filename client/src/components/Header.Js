@@ -3,14 +3,21 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
 //Components
-import { Button } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 //Styling
-import { medium } from '../globals/styles';
+import { medium, large } from '../globals/styles';
+import { flexBoxMixin, RowContainer } from '../globals/components';
 
 //Styled Components
-const Banner = styled.header`
-    background-image: url('http://www.bara-art.com/wp-content/uploads/2016/07/building_roof.jpg');
+export const Banner = styled.header.attrs(props => ({
+    direction: props.direction || 'row',
+    justify: props.justify || 'space-between',
+    align: props.align || 'center',
+    size: props.size || '1.5em',
+}))`
+    background-image: url('https://i.stack.imgur.com/Ip1XY.png'),
+        url('http://www.bara-art.com/wp-content/uploads/2016/07/building_roof.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -20,27 +27,57 @@ const Banner = styled.header`
 
     @media (max-width: 500px) {
         background-position: 0% 45%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
     }
 
     overflow-x: hidden;
-    font-size: 2em;
     color: white;
     max-height: 200px;
+    padding: ${props => props.size};
+
+    ${props => flexBoxMixin(props.direction, props.justify, props.align)};
 `;
 
 const Title = styled.h1`
-    font-size: ${medium};
+    font-size: ${props => props.size || large};
+    margin-top: 0;
 `;
 
-const Header = ({ title, titlePosition, subtitle, backButton, history }) => (
-    <Banner>
-        {backButton && (
-            <Button icon="caret square left" onClick={() => history.goBack()} />
-        )}
-        {title && <Title>{title}</Title>}
+const Header = ({
+    title = 'Prisoner Skills',
+    titlePosition,
+    subtitle = '',
+    backButton,
+    history,
+    direction,
+    justify,
+    align,
+    size,
+}) => (
+    <Banner direction={direction} justify={justify} align={align} size={size}>
+        <RowContainer align="center">
+            {backButton && (
+                <Icon
+                    name="caret left"
+                    onClick={() => history.goBack()}
+                    style={{ marginRight: 10 }}
+                />
+            )}
+            {title && (
+                <Title size={size}>
+                    {title.split('\n').map((i, key) => {
+                        return (
+                            <div key={key} style={{ textAlign: 'center' }}>
+                                {i}
+                            </div>
+                        );
+                    })}
+                </Title>
+            )}
+        </RowContainer>
         {subtitle}
-        <p>Prisoner Skills believes in every prisoner’s future.</p>
-        <p>Thank you for helping</p>
     </Banner>
 );
 export default withRouter(Header);
