@@ -3,7 +3,7 @@ import logIn from './LogIn';
 import onboardingForm from './OnboardingForm';
 import header from './Header';
 import signUp from './SignUp';
-import createNew from "./newProfile"
+import createNew from './NewProfile';
 import accountSettingsForm from './AccountSettingsForm';
 
 export const NavBar = navBar;
