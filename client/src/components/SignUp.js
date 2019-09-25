@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { Form as SemanticForm, Button } from 'semantic-ui-react';
+import {
+    Form as SemanticForm,
+    Button,
+    Dimmer,
+    Loader,
+} from 'semantic-ui-react';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -12,30 +17,26 @@ const Stretch = styled.div`
     width: 345px;
 `;
 
-const BTN = styled.button`
-    width: 92px;
-    height: 38px;
-    margin-top: 10px;
-    color: white;
-    background-color: green;
-`;
-
-const App = ({ values, errors, touched, isSubmitting, status }) => {
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-        if (status) {
-            setUsers([...users, status]);
-        }
-    }, [status, users]);
-
+const App = ({
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    status,
+    handleSubmit,
+}) => {
+    console.log(isSubmitting);
     return (
-        //"name" is used by Formik as unique identifier for field values
-
-        <SemanticForm as={Form}>
+        <SemanticForm as={Form} onSubmit={handleSubmit}>
+            {isSubmitting && (
+                <Dimmer page active>
+                    <Loader>Creating Account</Loader>
+                </Dimmer>
+            )}
             <Stretch>
                 <div>
                     <h2>Sign Up</h2>
+
                     <strong>
                         <p>Email</p>
                     </strong>
@@ -80,7 +81,7 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
                     />
                 </div>
             </Stretch>
-            <BTN>Sign Up</BTN>
+            <SemanticForm.Button content="Sign Up" color="green" />
         </SemanticForm>
     );
 };
@@ -123,22 +124,28 @@ const SignUp = withFormik({
             .required('Required'),
     }),
 
-    handleSubmit(
+    async handleSubmit(
         values,
         { props, resetForm, setStatus, setErrors, setSubmitting }
     ) {
-        axios
-            .post(
-                'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/register',
-                { email: values.email, password: values.password }
-            )
-            .then(response => {
-                console.log(response);
-                console.log(props);
-            })
-            .catch(error => {
-                console.log(error.response);
-            });
+        console.log(props);
+        setSubmitting(true);
+        // axios
+        //     .post(
+        //         'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/auth/register',
+        //         { email: values.email, password: values.password }
+        //     )
+        //     .then(response => {
+        //         console.log(response);
+        //         if (response.status !== 200) {
+        //             throw new Error(response.statusText);
+        //         }
+        //         window.localStorage.setItem('token', response.data.token);
+        //         props.history.push('/onboarding');
+        //     })
+        //     .catch(error => {
+        //         console.log(error.response);
+        //     });
 
         setTimeout(() => {
             if (values.email === 'luisocasio03@gmail.com') {
