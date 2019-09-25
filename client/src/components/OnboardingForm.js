@@ -31,11 +31,20 @@ const StyledForm = styled.div`
 const App = ({
     values,
     errors,
+    effect,
     touched,
     status,
     handleSubmit,
     isSubmitting,
 }) => {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        if (effect) {
+            setUsers([...users, effect]);
+        }
+    }, [effect, users]);
+
     return (
         //Profile onboarding adn styling
         <SemanticForm as={Form} onSubmit={handleSubmit}>
@@ -136,7 +145,7 @@ const App = ({
                         <option value="WY">Wyoming</option>
                     </Field>
                 </div>
-                <SemanticForm.Button content="Finish!" color="green" />
+                <SemanticForm.Button type="submit">Finish!</SemanticForm.Button>
             </StyledForm>
         </SemanticForm>
     );
@@ -160,25 +169,29 @@ const OnboardingForm = withFormik({
             .min(5)
             .required('Phone number is required'),
         city: Yup.string().required('City is required'),
-        state: Yup.string().required('State is required'),
+        selectOption: Yup.string().required('State is required'),
     }),
 
     handleSubmit(values, { props, setEffect }) {
-        console.log('Got here');
-        // axiosWithAuth()
-        //     .post('profile', {
-        //         prisonName: values.name,
-        //         city: values.city,
-        //         state: values.state,
-        //         phone: values.phone,
-        //     })
-        //     .then(response => {
-        //         props.history.push('/me');
-        //     })
-        //     .catch(error => {
-        //         console.log(error.response);
-        //     });
+        console.log('Submitting Onboarding Form');
+        axiosWithAuth()
+            .post('profile', {
+                prisonName: values.name,
+                city: values.city,
+                state: values.state,
+                phone: values.phone,
+            })
+            .then(response => {
+                props.dispatch({
+                    type: 'update_user',
+                    payload: response.data,
+                });
+                props.history.push('/me');
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
     },
 })(App);
 
-export default withState(withRouter(OnboardingForm));
+export default OnboardingForm;
