@@ -3,7 +3,7 @@ import React from "react";
 import { ColumnContainer } from "../../globals/components";
 import { Header } from "../../components";
 import styled from "styled-components";
-import { Button } from "semantic-ui-react";
+
 
 const MySearch = styled.div`
   input {
@@ -14,23 +14,31 @@ const MySearch = styled.div`
     height: 45px;
     width: 800px;
     margin-left: 50px;
+    border-color: white;
+    font-size: 1.2rem;
     border-right: none;
-    font-size: 1.3rem;
   }
   button {
     height: 45px;
     width: 200px;
+    background-color: white;
+    border: 1px solid white;
+    border-left: none;
+    border-radius: 0px 5px 5px 0px;
   }
 `;
 
 const MyDrop = styled.div`
   select {
     margin-left: 50px;
-    height: 35px;
-    width: 200px;
+    height: 45px;
+    width: 220px;
     border-radius: 5px;
   }
 `;
+
+
+
 
 const SearchBar = () => (
   <MySearch>
@@ -39,7 +47,9 @@ const SearchBar = () => (
       //   value={Prisons}
       placeholder=" ⍰ search skills "
     />
-    <Button>Submit</Button>
+    <button>
+      <strong>Submit</strong>
+    </button>
   </MySearch>
 );
 
