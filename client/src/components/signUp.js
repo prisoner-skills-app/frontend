@@ -86,7 +86,7 @@ const App = ({ values, errors, touched, isSubmitting, status }) => {
     );
 };
 
-function equalTo(ref,msg) {
+function equalTo(ref, msg) {
     return Yup.mixed().test({
         name: 'equalTo',
         exclusive: false,

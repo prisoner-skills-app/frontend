@@ -1,4 +1,4 @@
-import header from "./Header.js"
+import header from './Header';
 import signUp from './SignUp';
 import navBar from './Navbar';
 
