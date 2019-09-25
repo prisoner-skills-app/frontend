@@ -119,7 +119,7 @@ const App = ({ values, errors, touched, effect }) => {
             <Field type="checkbox" id="check" name="check" checked={values.terms}/>
           </div>
           <BTN>Create Profile</BTN>
-          <BTN>Edit Profile</BTN>
+          {/* <BTN>Edit Profile</BTN> */}
         </StyledForm>
       </Form>
     </SemanticForm>
