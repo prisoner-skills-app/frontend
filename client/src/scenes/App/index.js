@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 
 //Components
@@ -6,7 +6,11 @@ import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
 
 //Custom Components
+<<<<<<< HEAD
 import { NavBar, SignUp, LogIn, OnboardingForm, NewProfile } from '../../components';
+=======
+import { NavBar, SignUp, LogIn, AccountSettingsForm } from '../../components';
+>>>>>>> b465ee22338090e15c143bcee39cf27977f79ead
 
 //State
 import { useStateValue } from '../../state';
@@ -19,18 +23,30 @@ import AllCandidates from '../AllCandidates';
 import AllPrisons from '../AllPrisons';
 import PrisonProfile from '../Public/Prison';
 import LoginSignup from '../LoginSignup';
-
-//Dumby Components for Routes
-const Login = () => <h1>Login / Sign up</h1>;
+import Onboarding from '../Onboarding';
 
 const App = () => {
+    const [{ user }, dispatch] = useStateValue();
+
+    useEffect(() => {
+        if (window.localStorage.getItem('token')) {
+            dispatch({
+                type: 'set_user',
+                payload: {
+                    token: window.localStorage.getItem('token'),
+                    id: window.localStorage.getItem('id'),
+                },
+            });
+        }
+    }, []);
+
     return (
         <BrowserRouter>
             <NavBar>
                 <Switch>
                     <PrivateRoute path="/me" component={UserAccount} />
                     <Route exact path="/login" component={LoginSignup} />
-                    <Route exact path="/onboarding" component={SignUp} />
+                    <Route exact path="/onboarding" component={Onboarding} />
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
                     <Route path="/:prison" component={PrisonProfile} />
@@ -48,7 +64,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Route
             {...rest}
             render={props =>
-                true ? <Component {...props} /> : <Redirect to="/login" />
+                window.localStorage.getItem('token') ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect to="/login" />
+                )
             }
         />
     );
