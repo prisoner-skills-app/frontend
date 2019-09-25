@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Header } from 'semantic-ui-react';
 
 //Custom Components
-import { NavBar, SignUp, LogIn, OnboardingForm } from '../../components';
+import { NavBar, SignUp, LogIn, OnboardingForm, NewProfile } from '../../components';
 
 //State
 import { useStateValue } from '../../state';
@@ -34,6 +34,7 @@ const App = () => {
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
                     <Route path="/:prison" component={PrisonProfile} />
+                    
                 </Switch>
             </NavBar>
         </BrowserRouter>
