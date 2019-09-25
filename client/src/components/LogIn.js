@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import styled from 'styled-components';
-import { Form as SemanticForm } from 'semantic-ui-react';
+import { Form as SemanticForm, Dimmer, Loader } from 'semantic-ui-react';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -15,7 +15,14 @@ const Stretch = styled.div`
     }
 `;
 
-const Login = ({ values, errors, touched, status }) => {
+const Login = ({
+    values,
+    errors,
+    touched,
+    status,
+    handleSubmit,
+    isSubmitting,
+}) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -24,7 +31,13 @@ const Login = ({ values, errors, touched, status }) => {
         }
     }, [status, users]);
     return (
-        <SemanticForm as={Form}>
+        <SemanticForm as={Form} onSubmit={handleSubmit}>
+            {isSubmitting && (
+                <Dimmer active page>
+                    <Loader>Logging In</Loader>
+                </Dimmer>
+            )}
+            {errors.global && <p>{errors.global}</p>}
             <Stretch>
                 <div>
                     <h2>Login</h2>
@@ -85,25 +98,32 @@ const LogIn = withFormik({
     }),
 
     handleSubmit(values, { resetForm, setStatus, setErrors, setSubmitting }) {
+        setSubmitting(true);
         axios
-            .post('#', values)
-
+            .post(
+                'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/auth/login',
+                { email: values.email, password: values.password }
+            )
             .then(response => {
-                setStatus(response.data);
                 console.log(response);
             })
             .catch(error => {
+                setErrors({
+                    global:
+                        'Either your username or password was incorrect or you need to create an account. Please try again',
+                });
                 console.log(error.response);
+                setSubmitting(false);
             });
 
-        setTimeout(() => {
-            if (values.email === 'luisocasio03@gmail.com') {
-                setErrors({ email: 'Email already in use' });
-            } else {
-                resetForm();
-            }
-            setSubmitting(false);
-        }, 2000);
+        // setTimeout(() => {
+        //     if (values.email === 'luisocasio03@gmail.com') {
+        //         setErrors({ email: 'Email already in use' });
+        //     } else {
+        //         resetForm();
+        //     }
+        //     setSubmitting(false);
+        // }, 2000);
         console.log(values);
     },
 })(Login);
