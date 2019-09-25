@@ -5,7 +5,7 @@ import { small } from '../../globals/styles.js';
 
 //Components
 import { ColumnContainer, RowContainer } from '../../globals/components';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid, Responsive } from 'semantic-ui-react';
 import { Route, Link } from 'react-router-dom';
 
 //Dummy Components
@@ -22,13 +22,18 @@ const CreateProfile = ({
     match,
 }) => {
     return (
-        <ColumnContainer>
-            <Header title={prisonName} />
-            <RowContainer>
+        <Grid columns={2} style={{ width: '100%' }}>
+            <Grid.Column width={8}>
                 <CreateForm />
+            </Grid.Column>
+            <Responsive
+                as={Grid.Column}
+                width={8}
+                minWidth={Responsive.onlyComputer.minWidth}
+            >
                 <Preview />
-            </RowContainer>
-        </ColumnContainer>
+            </Responsive>
+        </Grid>
     );
 };
 
