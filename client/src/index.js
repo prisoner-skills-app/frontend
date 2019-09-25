@@ -6,12 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 import { StateProvider } from './state';
 
-const reducer = (state, action) => {
-    switch (action.type) {
-        default:
-            return state;
-    }
-};
+import reducer from './reducers';
 
 const initialState = {};
 

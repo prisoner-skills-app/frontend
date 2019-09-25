@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Form as SemanticForm, Dimmer, Loader } from 'semantic-ui-react';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import { ComponentWithState, withState } from '../state';
 
 const Stretch = styled.div`
     display: flex;
@@ -97,22 +99,33 @@ const LogIn = withFormik({
             .required(),
     }),
 
-    handleSubmit(values, { resetForm, setStatus, setErrors, setSubmitting }) {
+    handleSubmit(
+        values,
+        { props, resetForm, setStatus, setErrors, setSubmitting }
+    ) {
         setSubmitting(true);
+        console.log(props);
         axios
             .post(
                 'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/auth/login',
                 { email: values.email, password: values.password }
             )
             .then(response => {
-                console.log(response);
+                if (response.status == 200) {
+                    window.localStorage.setItem('token', response.data.token);
+                    props.dispatch({
+                        type: 'set_user',
+                        payload: response.data,
+                    });
+                    props.history.push('/me');
+                }
             })
             .catch(error => {
                 setErrors({
                     global:
                         'Either your username or password was incorrect or you need to create an account. Please try again',
                 });
-                console.log(error.response);
+                console.log(error);
                 setSubmitting(false);
             });
 
@@ -128,4 +141,4 @@ const LogIn = withFormik({
     },
 })(Login);
 
-export default LogIn;
+export default withState(withRouter(LogIn));

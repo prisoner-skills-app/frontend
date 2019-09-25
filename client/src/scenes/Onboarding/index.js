@@ -24,22 +24,6 @@ const FormContainer = styled(Segment)`
 const Header = () => <h1>Onboarding</h1>;
 
 const Onboarding = ({ history }) => {
-    const [{ token }, dispatch] = useStateValue();
-
-    useEffect(() => {
-        let token = window.localStorage.getItem('token');
-        if (token) {
-            dispatch({
-                type: 'set_token',
-                payload: token,
-            });
-        }
-    }, []);
-
-    if (!token || token == '' || token == undefined || token == null) {
-        history.replace('/login');
-    }
-
     return (
         <ColumnContainer align="center">
             <Header />
