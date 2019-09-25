@@ -25,6 +25,7 @@ import AllPrisons from '../AllPrisons';
 import PrisonProfile from '../Public/Prison';
 import LoginSignup from '../LoginSignup';
 import Onboarding from '../Onboarding';
+import Home from '../Home';
 
 const App = () => {
     const [{ user }, dispatch] = useStateValue();
@@ -45,13 +46,13 @@ const App = () => {
         <BrowserRouter>
             <NavBar>
                 <Switch>
+                    <Route exact path="/" component={Home} />
                     <PrivateRoute path="/me" component={UserAccount} />
                     <Route exact path="/login" component={LoginSignup} />
                     <Route exact path="/onboarding" component={Onboarding} />
                     <Route exact path="/candidates" component={AllCandidates} />
                     <Route exact path="/prisons" component={AllPrisons} />
                     <Route path="/:prison" component={PrisonProfile} />
-                    
                 </Switch>
             </NavBar>
         </BrowserRouter>

@@ -41,12 +41,13 @@ export const Banner = styled.header.attrs(props => ({
 
 const Title = styled.h1`
     font-size: ${props => props.size || large};
-    margin-top: 0;
+    margin: 0px 20px 0px 0px;
 `;
 
 const Header = ({
     title = 'Prisoner Skills',
-    titlePosition,
+    searchBar,
+    dropDown,
     subtitle = '',
     backButton,
     history,
@@ -65,15 +66,19 @@ const Header = ({
                 />
             )}
             {title && (
-                <Title size={size}>
-                    {title.split('\n').map((i, key) => {
-                        return (
-                            <div key={key} style={{ textAlign: 'center' }}>
-                                {i}
-                            </div>
-                        );
-                    })}
-                </Title>
+                <>
+                    <Title size={size}>
+                        {title.split('\n').map((i, key) => {
+                            return (
+                                <div key={key} style={{ textAlign: 'center' }}>
+                                    {i}
+                                </div>
+                            );
+                        })}
+                    </Title>
+                    {searchBar}
+                    {dropDown}
+                </>
             )}
         </RowContainer>
         {subtitle}
