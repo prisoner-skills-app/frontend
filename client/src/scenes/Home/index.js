@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 //Components
 import { ColumnContainer } from "../../globals/components";
 import { Header } from "../../components";
 import styled from "styled-components";
-
 
 const MySearch = styled.div`
   input {
@@ -37,21 +36,23 @@ const MyDrop = styled.div`
   }
 `;
 
+const SearchBar = () => {
+  const [skill, setSkill] = useState("");
 
-
-
-const SearchBar = () => (
-  <MySearch>
-    <input
-      id="search"
-      //   value={Prisons}
-      placeholder=" ⍰ search skills "
-    />
-    <button>
-      <strong>Submit</strong>
-    </button>
-  </MySearch>
-);
+  return (
+    <MySearch>
+      <input
+        id="search"
+        value={skill}
+        placeholder=" ⍰ search skills "
+        onChange={event => setSkill(event.target.value)}
+      />
+      <button>
+        <strong>Submit</strong>
+      </button>
+    </MySearch>
+  );
+};
 
 const DropDown = () => (
   <MyDrop>
