@@ -2,8 +2,10 @@ import React from 'react';
 import { Formik, withFormik, Form, Field } from 'formik';
 import { Form as SForm, Button, Message } from 'semantic-ui-react';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { axiosWithAuth } from '../hooks';
 import _ from 'lodash';
+import { withRouter } from 'react-router-dom';
+import { withState } from '../state';
 
 const AccountSettings = ({
     errors,
@@ -12,6 +14,7 @@ const AccountSettings = ({
     status,
     userCreated,
     setFieldValue,
+    history,
 }) => {
     return (
         <SForm as={Form} style={{ maxWidth: 450 }}>
@@ -85,7 +88,7 @@ const AccountSettings = ({
                     color="red"
                     basic
                     onClick={() => {
-                        alert('cancelling');
+                        history.push('/me');
                     }}
                 />
             </SForm.Group>
@@ -144,17 +147,17 @@ const AccountSettingsForm = withFormik({
 
     handleSubmit: function(values, { props, resetForm }) {
         console.log('Submitting');
-        axios
-            .put(
-                `https://lsbw-liberated-skills.herokuapp.com/api/centers/id/profile`,
-                { values }
-            )
+        axiosWithAuth()
+            .put('/profile', {
+                email: values.email,
+                name: values.prisonName,
+                phone: values.phoneNumber,
+            })
             .then(res => {
                 console.log(res.data);
-                props.userCreated(res.data);
-                resetForm();
-            });
+            })
+            .catch(err => console.log(err));
     },
 })(AccountSettings);
 
-export default AccountSettingsForm;
+export default withState(AccountSettingsForm);

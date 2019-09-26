@@ -32,34 +32,7 @@ const AllProfiles = ({
     history,
     match,
 }) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [prison, setPrison] = useState([]);
     const [{ user, candidates }, dispatch] = useStateValue();
-
-    useEffect(() => {
-        setIsLoading(true);
-        //let prisonId = location.pathname;
-        //let url = `api/prions/${prisonId}`;
-
-        let url = `https://lsbw-liberated-skills.herokuapp.com/api/centers/${user.id}`;
-        axios
-            .get(url)
-            .then(res => {
-                if (res.status !== 200) {
-                    throw new Error('did not fetch all prisons');
-                }
-                console.log(res);
-                dispatch({
-                    type: 'set_user_candidates',
-                    payload: res.data.persons,
-                });
-                setIsLoading(false);
-            })
-            .catch(err => {
-                console.log(err);
-                setIsLoading(false);
-            });
-    }, []);
 
     return (
         <>
@@ -83,26 +56,22 @@ const AllProfiles = ({
 
             <RowContainer>
                 <CandidatesContainer>
-                    {isLoading ? (
-                        <h1>Loading</h1>
-                    ) : (
-                        candidates.map((candidate, index) => {
-                            return (
-                                <Link
-                                    to={{
-                                        pathname: '/me/edit-profile',
-                                        state: { candidate: true },
-                                    }}
-                                >
-                                    <Card
-                                        header={candidate.name}
-                                        description={candidate.description}
-                                        meta={candidate.skills}
-                                    />
-                                </Link>
-                            );
-                        })
-                    )}
+                    {candidates.map((candidate, index) => {
+                        return (
+                            <Link
+                                to={{
+                                    pathname: '/me/edit-profile',
+                                    state: { candidate: true },
+                                }}
+                            >
+                                <Card
+                                    header={candidate.name}
+                                    description={candidate.description}
+                                    meta={candidate.skills}
+                                />
+                            </Link>
+                        );
+                    })}
                 </CandidatesContainer>
                 <Route
                     path="/:prison/:candidate"

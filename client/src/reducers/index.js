@@ -16,6 +16,11 @@ export default function reducer(state, action) {
                 ...state,
                 user: {},
             };
+        case 'update_candidates':
+            return {
+                ...state,
+                candidates: [...state.candidates, action.payload],
+            };
         case 'set_user_candidates':
             return {
                 ...state,
