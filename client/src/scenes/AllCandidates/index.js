@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import { medium, large } from '../../globals/styles';
 
 //Components
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import { ColumnContainer } from '../../globals/components';
+import { Link } from 'react-router-dom';
 
 //Custom Components
-const Header = () => <h1>Header</h1>;
+import { Header, CandidateCard } from '../../components';
 
 //Styled Components
 const CandidatesContainer = styled.div`
@@ -16,6 +17,10 @@ const CandidatesContainer = styled.div`
     flex-flow: row wrap;
     justify-content: space-around;
     padding: ${medium};
+
+    .ui.card:first-child {
+        margin-top: 14px;
+    }
 `;
 
 const AllCandidates = () => {
@@ -24,7 +29,7 @@ const AllCandidates = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        let url = 'https://my.api.mockaroo.com/users.json?key=ee167170';
+        let url = 'https://lsbw-liberated-skills.herokuapp.com/api/candidates';
 
         axios
             .get(url)
@@ -32,6 +37,7 @@ const AllCandidates = () => {
                 if (res.status !== 200) {
                     throw new Error('Call to candidates failed');
                 }
+                console.log(res);
                 setCandidates(res.data);
                 setIsLoading(false);
             })
@@ -42,18 +48,30 @@ const AllCandidates = () => {
     }, []);
 
     return (
-        <ColumnContainer>
-            <Header />
+        <ColumnContainer align="stretch">
+            <Header title="All Candidates" />
             <CandidatesContainer>
                 {isLoading ? (
                     <h1>Loading</h1>
                 ) : (
                     candidates.map(candidate => {
                         return (
-                            <Card
-                                header={`${candidate.first_name} ${candidate.last_name}`}
-                                description={candidate.description}
-                                meta={candidate.skills}
+                            <CandidateCard
+                                key={candidate.name + candidate.id}
+                                name={candidate.name}
+                                description={candidate.description || ''}
+                                skills={candidate.skills}
+                                actions={
+                                    <Button
+                                        as={Link}
+                                        to={{
+                                            pathname: `/${candidate.centerId}/${candidate.id}`,
+                                            state: { candidate },
+                                        }}
+                                        content={`View more about ${candidate.name}`}
+                                        color="green"
+                                    />
+                                }
                             />
                         );
                     })

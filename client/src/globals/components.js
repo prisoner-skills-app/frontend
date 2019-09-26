@@ -12,11 +12,18 @@ export const flexBoxMixin = (direction, justify, align, wrap) => {
 
 export const ColumnContainer = styled.div.attrs(props => ({
     justify: props.justify || 'flex-start',
-    align: props.align || 'flex-start',
+    align: props.align || 'stretch',
+    padding: props.padding || 0,
 }))`
-    ${props => flexBoxMixin('column', props.justify, props.align)}
+    padding: ${props => props.padding};
+    ${props => flexBoxMixin('column', props.justify, props.align)};
 `;
 
-export const RowContainer = styled.div`
-    ${flexBoxMixin()}
+export const RowContainer = styled.div.attrs(props => ({
+    justify: props.justify || 'flex-start',
+    align: props.align || 'flex-start',
+    padding: props.padding || 0,
+}))`
+    padding: ${props => props.padding};
+    ${props => flexBoxMixin('row', props.justify, props.align)}
 `;
