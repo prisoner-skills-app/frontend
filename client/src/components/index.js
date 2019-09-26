@@ -5,9 +5,10 @@ import header from './Header';
 import signUp from './SignUp';
 import newProfile from './NewProfile';
 import accountSettingsForm from './AccountSettingsForm';
-import warningModal from "./WarningModal"
+import warningModal from './WarningModal';
 import createNewProfileButton from './CreateNewProfileButton';
-
+import largeCard from './LargeCard';
+import candidateCard from './CandidateCard';
 
 export const NavBar = navBar;
 export const LogIn = logIn;
@@ -17,5 +18,6 @@ export const SignUp = signUp;
 export const NewProfile = newProfile;
 export const AccountSettingsForm = accountSettingsForm;
 export const CreateNewProfileButton = createNewProfileButton;
-
+export const LargeCard = largeCard;
 export const WarningModal = warningModal;
+export const CandidateCard = candidateCard;
