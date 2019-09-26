@@ -22,12 +22,13 @@ const MyForm = styled.div`
     color: white;
     border: 1px solid white;
     font-size: 1rem;
-  }
+  }  
 `;
 
-const List = styled.header`
-  overflow: none;
-`;
+
+
+
+
 
 const SearchBar = () => {
   const [skill, setSkill] = useState("");
@@ -46,7 +47,7 @@ const SearchBar = () => {
               color: "#ffffff",
               labelPosition: "right",
               icon: "search",
-              content: "Search"
+              content: "Submit"
             }}
           />
         </Form.Field>
@@ -64,7 +65,12 @@ const stateOptions = _.map(addressDefinitions.state, (state, index) => ({
 
 const DropDown = () => (
   //<List>
-  <Dropdown placeholder="State" search selection options={stateOptions} />
+  <Dropdown
+    placeholder="Search States"
+    search
+    selection
+    options={stateOptions}
+  />
   //</List>
 );
 

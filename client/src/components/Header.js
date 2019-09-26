@@ -16,31 +16,37 @@ export const Banner = styled.header.attrs(props => ({
   align: props.align || "center",
   size: props.size || "1.5em"
 }))`
+  overflow: visible !important;
+  overflow-x: hidden;
+  color: white;
+  padding: ${props => props.size};
+
+  ${props => flexBoxMixin(props.direction, props.justify, props.align)};
+
   background-image: url("http://www.bara-art.com/wp-content/uploads/2016/07/building_roof.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 
+  //desktop view
+  @media (min-width: 1190px) {
+  }
+
+  //tablet view
   @media (min-width: 768px) {
     background-position: 0% 30%;
   }
 
+  //mobile view
   @media (max-width: 500px) {
     background-position: 0% 45%;
-    text-align: center;
-
     .search {
-      width: 100%;
+      width: 600px;
+      margin-left: 19px;
     }
-    
+    .sc-bZQynM.fIEYMI {
+      display: none;
+    }
   }
-
-  overflow: visible !important;
-  overflow-x: hidden;
-  color: white;
-  max-height: 200px;
-  padding: ${props => props.size};
-
-  ${props => flexBoxMixin(props.direction, props.justify, props.align)};
 `;
 
 const Title = styled.h1`
