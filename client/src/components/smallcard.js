@@ -174,13 +174,11 @@ const OnboardingForm = withFormik({
 
     handleSubmit(values, { props, setEffect }) {
         console.log('Submitting Onboarding Form');
-        console.log(props);
         axiosWithAuth()
-            .put('/profile', {
-                email: props.state.user.email,
-                name: values.name,
+            .post('profile', {
+                prisonName: values.name,
                 city: values.city,
-                state: values.selectOption,
+                state: values.state,
                 phone: values.phone,
             })
             .then(response => {
@@ -196,4 +194,4 @@ const OnboardingForm = withFormik({
     },
 })(App);
 
-export default withState(withRouter(OnboardingForm));
+export default OnboardingForm;

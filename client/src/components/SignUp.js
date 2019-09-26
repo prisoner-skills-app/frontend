@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
+import { withRouter } from 'react-router-dom';
+import { withState } from '../state';
 import styled from 'styled-components';
-import { Form as SemanticForm, Button } from 'semantic-ui-react';
+import {
+    Form as SemanticForm,
+    Button,
+    Dimmer,
+    Loader,
+} from 'semantic-ui-react';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -11,82 +18,76 @@ const Stretch = styled.div`
     width: 345px;
 `;
 
-const BTN = styled.button`
-    width: 92px;
-    height: 38px;
-    margin-top: 10px;
-    color: white;
-    background-color: green;
-`;
-
-const App = ({ values, errors, touched, isSubmitting, status }) => {
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-        if (status) {
-            setUsers([...users, status]);
-        }
-    }, [status, users]);
-
+const App = ({
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    status,
+    handleSubmit,
+}) => {
+    console.log(isSubmitting);
     return (
-        //"name" is used by Formik as unique identifier for field values
+        <SemanticForm as={Form} onSubmit={handleSubmit}>
+            {isSubmitting && (
+                <Dimmer page active>
+                    <Loader>Creating Account</Loader>
+                </Dimmer>
+            )}
+            <Stretch>
+                <div>
+                    <h2>Sign Up</h2>
 
-        <SemanticForm>
-            <Form>
-                <Stretch>
-                    <div>
-                        <h2>Sign Up</h2>
-                        <strong>
-                            <p>Email</p>
-                        </strong>
-                        {touched.email && errors.email && <p>{errors.email}</p>}
-                        <Field
-                            type="email"
-                            name="email"
-                            placeholder="email@.com"
-                            value={values.email}
-                        />
-                    </div>
+                    <strong>
+                        <p>Email</p>
+                    </strong>
+                    {touched.email && errors.email && <p>{errors.email}</p>}
+                    <Field
+                        type="email"
+                        name="email"
+                        placeholder="email@.com"
+                        value={values.email}
+                    />
+                </div>
 
-                    <div>
-                        <strong>
-                            <p>Password</p>
-                        </strong>
-                        {touched.password && errors.password && (
-                            <p>{errors.password}</p>
-                        )}
-                        <Field
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={values.password}
-                            autoComplete="password"
-                        />
-                    </div>
+                <div>
+                    <strong>
+                        <p>Password</p>
+                    </strong>
+                    {touched.password && errors.password && (
+                        <p>{errors.password}</p>
+                    )}
+                    <Field
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={values.password}
+                        autoComplete="password"
+                    />
+                </div>
 
-                    <div>
-                        <strong>
-                            <p>Confirm Password</p>
-                        </strong>
-                        {touched.passwordConfirm && errors.passwordConfirm && (
-                            <p>{errors.passwordConfirm}</p>
-                        )}
-                        <Field
-                            type="password"
-                            name="passwordConfirm"
-                            placeholder="Confirm password"
-                            value={values.passwordConfirm}
-                            autoComplete="Confirm password"
-                        />
-                    </div>
-                </Stretch>
-                <BTN>Sign Up</BTN>
-            </Form>
+                <div>
+                    <strong>
+                        <p>Confirm Password</p>
+                    </strong>
+                    {touched.passwordConfirm && errors.passwordConfirm && (
+                        <p>{errors.passwordConfirm}</p>
+                    )}
+                    <Field
+                        type="password"
+                        name="passwordConfirm"
+                        placeholder="Confirm password"
+                        value={values.passwordConfirm}
+                        autoComplete="Confirm password"
+                    />
+                </div>
+            </Stretch>
+            <SemanticForm.Button content="Sign Up" color="green" />
         </SemanticForm>
     );
 };
 
-function equalTo(ref,msg) {
+function equalTo(ref, msg) {
     return Yup.mixed().test({
         name: 'equalTo',
         exclusive: false,
@@ -124,13 +125,31 @@ const SignUp = withFormik({
             .required('Required'),
     }),
 
-    handleSubmit(values, { resetForm, setStatus, setErrors, setSubmitting }) {
+    async handleSubmit(
+        values,
+        { props, resetForm, setStatus, setErrors, setSubmitting }
+    ) {
+        console.log(props);
+        setSubmitting(true);
         axios
-            .post('#', values)
-
+            .post(
+                'https://lsbw-liberated-skills.herokuapp.com/api/auth/register',
+                { email: values.email, password: values.password }
+            )
             .then(response => {
-                setStatus(response.data);
                 console.log(response);
+                if (response.status !== 200) {
+                    throw new Error(response.statusText);
+                }
+                window.localStorage.setItem(
+                    'user',
+                    JSON.stringify(response.data)
+                );
+                props.dispatch({
+                    type: 'set_user',
+                    payload: response.data,
+                });
+                props.history.push('/onboarding');
             })
             .catch(error => {
                 console.log(error.response);
@@ -148,4 +167,4 @@ const SignUp = withFormik({
     },
 })(App);
 
-export default SignUp;
+export default withState(withRouter(SignUp));
