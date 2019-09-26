@@ -22,6 +22,15 @@ const BTN = styled.button`
     margin: 0 auto;
     position: relative;
 `;
+const BTN2 = styled.button`
+    width: 100px;
+    height: 40px;
+    margin-top: 10px;
+    color: red;
+    background-color: white;
+    margin: 0 auto;
+    position: relative;
+`;
 
 const App = ({ values, errors, touched, effect, handleSubmit }) => {
     const [users, setUsers] = useState([]);
