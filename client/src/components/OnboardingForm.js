@@ -145,7 +145,9 @@ const App = ({
                         <option value="WY">Wyoming</option>
                     </Field>
                 </div>
-                <SemanticForm.Button type="submit">Finish!</SemanticForm.Button>
+                <SemanticForm.Button type="submit" color="green">
+                    Finish!
+                </SemanticForm.Button>
             </StyledForm>
         </SemanticForm>
     );
