@@ -61,50 +61,54 @@ const PrisonProfile = ({
                 <h1>Loading</h1>
             ) : (
                 <>
-                    <Header title={prison.name} />
-                    <RowContainer>
-                        <CandidatesContainer
-                            size={
-                                location.pathname.indexOf('/', 3) !== -1
-                                    ? '50%'
-                                    : '100%'
-                            }
-                        >
-                            <h2>Candidates</h2>
-                            <RowContainer justify="space-between">
-                                {candidates.map((candidate, index) => {
-                                    return (
-                                        <Link to={`${match.url}/${index}`}>
-                                            <CandidateCard
-                                                key={
-                                                    candidate.name +
-                                                    candidate.id
-                                                }
-                                                name={candidate.name}
-                                                description={
-                                                    candidate.description || ''
-                                                }
-                                                skills={candidate.skills}
-                                                actions={
-                                                    <>
-                                                        <Button
-                                                            content={`View more about ${candidate.name}`}
-                                                            color="green"
-                                                        />
-                                                        <WarningModal />
-                                                    </>
-                                                }
-                                            />
-                                        </Link>
-                                    );
-                                })}
-                            </RowContainer>
-                        </CandidatesContainer>
-                        <Route
-                            path="/:prison/:candidate"
-                            component={CandidateProfile}
-                        />
-                    </RowContainer>
+                    <Header title={prison.name} backButton />
+                    <ColumnContainer padding="2em">
+                        <h2>Candidates</h2>
+
+                        <RowContainer>
+                            <CandidatesContainer
+                                size={
+                                    location.pathname.indexOf('/', 3) !== -1
+                                        ? '50%'
+                                        : '100%'
+                                }
+                            >
+                                <RowContainer justify="space-between">
+                                    {candidates.map((candidate, index) => {
+                                        return (
+                                            <Link to={`${match.url}/${index}`}>
+                                                <CandidateCard
+                                                    key={
+                                                        candidate.name +
+                                                        candidate.id
+                                                    }
+                                                    name={candidate.name}
+                                                    description={
+                                                        candidate.description ||
+                                                        ''
+                                                    }
+                                                    skills={candidate.skills}
+                                                    actions={
+                                                        <>
+                                                            <Button
+                                                                content={`View more about ${candidate.name}`}
+                                                                color="green"
+                                                            />
+                                                            <WarningModal />
+                                                        </>
+                                                    }
+                                                />
+                                            </Link>
+                                        );
+                                    })}
+                                </RowContainer>
+                            </CandidatesContainer>
+                            <Route
+                                path="/:prison/:candidate"
+                                component={CandidateProfile}
+                            />
+                        </RowContainer>
+                    </ColumnContainer>
                 </>
             )}
         </ColumnContainer>
