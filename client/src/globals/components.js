@@ -22,6 +22,8 @@ export const ColumnContainer = styled.div.attrs(props => ({
 export const RowContainer = styled.div.attrs(props => ({
     justify: props.justify || 'flex-start',
     align: props.align || 'flex-start',
+    padding: props.padding || 0,
 }))`
+    padding: ${props => props.padding};
     ${props => flexBoxMixin('row', props.justify, props.align)}
 `;

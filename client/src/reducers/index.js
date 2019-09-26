@@ -1,3 +1,5 @@
+import { axiosWithAuth } from '../hooks';
+
 export default function reducer(state, action) {
     switch (action.type) {
         case 'set_user':
@@ -25,6 +27,17 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 candidates: action.payload,
+            };
+        case 'delete_user':
+            axiosWithAuth()
+                .delete()
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+
+            window.localStorage.removeItem('user');
+
+            return {
+                state: {},
             };
         default:
             return state;

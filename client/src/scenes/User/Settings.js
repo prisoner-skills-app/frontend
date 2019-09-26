@@ -26,10 +26,19 @@ const Settings = ({ history }) => {
             menuItem: 'Delete Account',
             render: () => (
                 <Tab.Pane as="div">
+                    <p style={{ color: 'red' }}>
+                        Warning! Clicking this button will permenantly deleting
+                        your account. Proceed with caution!
+                    </p>
                     <Button
                         content="Delete Account"
                         color="red"
-                        onClick={() => alert('Deleting')}
+                        onClick={() => {
+                            dispatch({
+                                type: 'delete_user',
+                            });
+                            history.push('/');
+                        }}
                     />
                 </Tab.Pane>
             ),
