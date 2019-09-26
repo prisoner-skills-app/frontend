@@ -148,7 +148,6 @@ const CreateNew = withFormik({
         date: string().required('Parole date is required'),
     }),
 
-    // Submit button handling
     handleSubmit(values, { setEffect }) {
         console.log('hello!');
 
