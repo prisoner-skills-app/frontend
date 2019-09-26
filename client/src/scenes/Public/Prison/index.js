@@ -7,10 +7,14 @@ import { small, medium } from '../../../globals/styles.js';
 import { ColumnContainer, RowContainer } from '../../../globals/components';
 import { Button } from 'semantic-ui-react';
 import { Route, Link } from 'react-router-dom';
-import { Header, CandidateCard, WarningModal } from '../../../components';
+import {
+    Header,
+    CandidateCard,
+    WarningModal,
+    LargeCard,
+} from '../../../components';
 
 //Dummy Components
-const Prisoners = () => <h1>Prisoners</h1>;
 const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
 
 //Styled Components
@@ -28,7 +32,7 @@ const PrisonProfile = ({
     history,
     match,
 }) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [prison, setPrison] = useState([]);
     const [candidates, setCandidates] = useState([]);
 
@@ -47,7 +51,9 @@ const PrisonProfile = ({
                 console.log(res);
                 setPrison(res.data.center);
                 setCandidates(res.data.persons);
-                setIsLoading(false);
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 1000);
             })
             .catch(err => {
                 console.log(err);
@@ -68,7 +74,7 @@ const PrisonProfile = ({
                         <RowContainer>
                             <CandidatesContainer
                                 size={
-                                    location.pathname.indexOf('/', 3) !== -1
+                                    location.pathname.indexOf('/', 1) !== -1
                                         ? '50%'
                                         : '100%'
                                 }
@@ -76,7 +82,12 @@ const PrisonProfile = ({
                                 <RowContainer justify="space-between">
                                     {candidates.map((candidate, index) => {
                                         return (
-                                            <Link to={`${match.url}/${index}`}>
+                                            <Link
+                                                to={{
+                                                    pathname: `${match.url}/${index}`,
+                                                    state: { candidate },
+                                                }}
+                                            >
                                                 <CandidateCard
                                                     key={
                                                         candidate.name +
@@ -105,7 +116,7 @@ const PrisonProfile = ({
                             </CandidatesContainer>
                             <Route
                                 path="/:prison/:candidate"
-                                component={CandidateProfile}
+                                component={LargeCard}
                             />
                         </RowContainer>
                     </ColumnContainer>

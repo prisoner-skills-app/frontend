@@ -64,7 +64,10 @@ const AllCandidates = () => {
                                 actions={
                                     <Button
                                         as={Link}
-                                        to={`/${candidate.centerId}/${candidate.id}`}
+                                        to={{
+                                            pathname: `/${candidate.centerId}/${candidate.id}`,
+                                            state: { candidate },
+                                        }}
                                         content={`View more about ${candidate.name}`}
                                         color="green"
                                     />
