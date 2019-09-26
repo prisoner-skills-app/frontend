@@ -13,8 +13,7 @@ const CandidateCard = ({ name, description, skills, actions }) => {
             <Card.Content>
                 <Card.Header>{name}</Card.Header>
                 <Card.Description>{description}</Card.Description>
-            </Card.Content>
-            <Card.Content>
+
                 <h4>Skills</h4>
                 {splitSkills.map((skill, i) => {
                     return <Label>{skill}</Label>;
