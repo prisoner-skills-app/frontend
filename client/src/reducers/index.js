@@ -9,7 +9,13 @@ export default function reducer(state, action) {
             };
         case 'update_user':
             console.log(state.user, action.payload);
-
+            window.localStorage.setItem(
+                'user',
+                JSON.stringify({
+                    ...state.user,
+                    ...action.payload,
+                })
+            );
             return {
                 ...state,
                 user: { ...state.user, ...action.payload },
@@ -41,7 +47,20 @@ export default function reducer(state, action) {
             return {
                 state: {},
             };
+        case 'delete_candidate':
+            axiosWithAuth(`/candidates/${action.payload}`)
+                .delete()
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
 
+            let candidates = state.candidates.filter(
+                c => c.id === action.payload
+            );
+
+            return {
+                ...state,
+                candidates: candidates,
+            };
         case 'set_preview':
             return {
                 ...state,

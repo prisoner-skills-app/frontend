@@ -56,36 +56,27 @@ const AllProfiles = ({
                     {candidates &&
                         candidates.map((candidate, index) => {
                             return (
-                                <Link
-                                    to={{
-                                        pathname: '/me/edit-profile',
-                                        state: { candidate: true },
-                                    }}
-                                >
-                                    <CandidateCard
-                                        key={candidate.name + candidate.id}
-                                        name={candidate.name}
-                                        description={
-                                            candidate.description || ''
-                                        }
-                                        skills={candidate.skills}
-                                        actions={
-                                            <>
-                                                <Button
-                                                    as={Link}
-                                                    to={{
-                                                        pathname: `/edit-profile`,
-                                                        state: { candidate },
-                                                    }}
-                                                    content={`Edit`}
-                                                    basic
-                                                    color="green"
-                                                />
-                                                <WarningModal />
-                                            </>
-                                        }
-                                    />
-                                </Link>
+                                <CandidateCard
+                                    key={candidate.name + candidate.id}
+                                    name={candidate.name}
+                                    description={candidate.description || ''}
+                                    skills={candidate.skills}
+                                    actions={
+                                        <>
+                                            <Button
+                                                as={Link}
+                                                to={{
+                                                    pathname: `/me/edit-profile`,
+                                                    state: { candidate },
+                                                }}
+                                                content={`Edit`}
+                                                basic
+                                                color="green"
+                                            />
+                                            <WarningModal id={candidate.id} />
+                                        </>
+                                    }
+                                />
                             );
                         })}
                 </CandidatesContainer>
