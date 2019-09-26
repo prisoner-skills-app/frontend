@@ -11,7 +11,11 @@ import { useStateValue } from '../../state';
 import { ColumnContainer, RowContainer } from '../../globals/components';
 import { Card, Button, Message } from 'semantic-ui-react';
 import { Route, Link } from 'react-router-dom';
-import { CreateNewProfileButton } from '../../components';
+import {
+    CreateNewProfileButton,
+    CandidateCard,
+    WarningModal,
+} from '../../components';
 
 //Dummy Components
 const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
@@ -58,10 +62,28 @@ const AllProfiles = ({
                                         state: { candidate: true },
                                     }}
                                 >
-                                    <Card
-                                        header={candidate.name}
-                                        description={candidate.description}
-                                        meta={candidate.skills}
+                                    <CandidateCard
+                                        key={candidate.name + candidate.id}
+                                        name={candidate.name}
+                                        description={
+                                            candidate.description || ''
+                                        }
+                                        skills={candidate.skills}
+                                        actions={
+                                            <>
+                                                <Button
+                                                    as={Link}
+                                                    to={{
+                                                        pathname: `/edit-profile`,
+                                                        state: { candidate },
+                                                    }}
+                                                    content={`Edit`}
+                                                    basic
+                                                    color="green"
+                                                />
+                                                <WarningModal />
+                                            </>
+                                        }
                                     />
                                 </Link>
                             );

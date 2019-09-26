@@ -15,7 +15,7 @@ import { Header, CandidateCard } from '../../components';
 const CandidatesContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: ${medium};
 
     .ui.card:first-child {

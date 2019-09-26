@@ -23,15 +23,13 @@ const LargeCard = props => {
     } = props;
 
     if (location && location.state) {
-        let {
-            name,
-            description,
-            education,
-            availability,
-            paroleDate,
-            skills,
-            centerId,
-        } = location.state.candidate;
+        name = location.state.candidate.name;
+        description = location.state.candidate.description;
+        education = location.state.candidate.education;
+        availability = location.state.candidate.availability;
+        paroleDate = location.state.candidate.paroleDate;
+        skills = location.state.candidate.skills;
+        centerId = location.state.candidate.centerId;
     }
 
     console.log(location);
@@ -47,7 +45,7 @@ const LargeCard = props => {
                 </Card.Content>
                 <Card.Content>
                     <ColumnContainer>
-                        <RowContainer>
+                        <RowContainer justify="space-between">
                             <ColumnContainer>
                                 <h4>Education</h4>
                                 {education}
@@ -82,12 +80,12 @@ const LargeCard = props => {
                     />
                 </Card.Content>
             </Card>
-            {!props.noButton && (
+            {!noButton && (
                 <Button
                     content="close"
                     basic
                     color="red"
-                    onClick={() => props.history.push(`/${centerId}`)}
+                    onClick={() => history.push(`/${centerId}`)}
                     style={{ width: 150 }}
                 />
             )}

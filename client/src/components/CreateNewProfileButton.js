@@ -12,9 +12,10 @@ const Button = styled.div`
     border: 1px solid lightgrey;
     ${flexBoxMixin('column', 'center', 'center')}
     padding: ${large}
-    height: 250px;
-    width: 200px;
+    height: 300px;
+    width: 290px;
     margin-right: ${large};
+    margin-bottom: 10px;
     h4{
         text-align: center;
     }
