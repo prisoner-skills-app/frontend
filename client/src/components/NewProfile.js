@@ -8,6 +8,8 @@ import { Form as SemanticForm, Dimmer, Loader } from 'semantic-ui-react';
 import { withState } from '../state';
 import { withRouter } from 'react-router-dom';
 
+import { useStateValue } from '../state';
+
 //Styled components
 const StyledForm = styled.div`
     display: flex;
@@ -23,6 +25,15 @@ const App = ({
     isSubmitting,
     handleSubmit,
 }) => {
+    const [{ preview }, dispatch] = useStateValue();
+
+    useEffect(() => {
+        dispatch({
+            type: 'set_preview',
+            payload: { ...values },
+        });
+    }, [values]);
+
     return (
         //Profile onboarding adn styling
         <SemanticForm as={Form} onSubmit={handleSubmit}>

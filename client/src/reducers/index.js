@@ -41,6 +41,13 @@ export default function reducer(state, action) {
             return {
                 state: {},
             };
+
+        case 'set_preview':
+            return {
+                ...state,
+                preview: action.payload,
+            };
+
         default:
             return state;
     }
