@@ -119,7 +119,9 @@ const App = ({ values, errors, touched, effect, handleSubmit }) => {
                 <SemanticForm.Button type="submit">
                     Create Profile
                 </SemanticForm.Button>
-                {/* <BTN>Edit Profile</BTN> */}
+                <SemanticForm.Button type="submit">
+                    Cancel
+                </SemanticForm.Button>
             </StyledForm>
         </SemanticForm>
     );
