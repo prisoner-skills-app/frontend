@@ -5,9 +5,9 @@ import { small, medium } from '../../../globals/styles.js';
 
 //Components
 import { ColumnContainer, RowContainer } from '../../../globals/components';
-import { Card } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { Route, Link } from 'react-router-dom';
-import { Header } from '../../../components';
+import { Header, CandidateCard, WarningModal } from '../../../components';
 
 //Dummy Components
 const Prisoners = () => <h1>Prisoners</h1>;
@@ -30,12 +30,13 @@ const PrisonProfile = ({
 }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [prison, setPrison] = useState([]);
+    const [candidates, setCandidates] = useState([]);
 
     useEffect(() => {
         setIsLoading(true);
         //let prisonId = location.pathname;
         //let url = `api/prions/${prisonId}`;
-        let url = 'https://my.api.mockaroo.com/users.json?key=ee167170';
+        let url = `https://lsbw-liberated-skills.herokuapp.com/api/centers/${match.params.prison}`;
 
         axios
             .get(url)
@@ -44,7 +45,8 @@ const PrisonProfile = ({
                     throw new Error('did not fetch all prisons');
                 }
                 console.log(res);
-                setPrison(res.data);
+                setPrison(res.data.center);
+                setCandidates(res.data.persons);
                 setIsLoading(false);
             })
             .catch(err => {
@@ -55,43 +57,56 @@ const PrisonProfile = ({
 
     return (
         <ColumnContainer align="stretch">
-            <Header title="Hunstville Corrections" />
-            <RowContainer>
-                <CandidatesContainer
-                    size={
-                        location.pathname.indexOf('/', 3) !== -1
-                            ? '50%'
-                            : '100%'
-                    }
-                >
-                    {isLoading ? (
-                        <h1>Loading</h1>
-                    ) : (
-                        <>
+            {isLoading ? (
+                <h1>Loading</h1>
+            ) : (
+                <>
+                    <Header title={prison.name} />
+                    <RowContainer>
+                        <CandidatesContainer
+                            size={
+                                location.pathname.indexOf('/', 3) !== -1
+                                    ? '50%'
+                                    : '100%'
+                            }
+                        >
                             <h2>Candidates</h2>
                             <RowContainer justify="space-between">
-                                {prison.map((candidate, index) => {
+                                {candidates.map((candidate, index) => {
                                     return (
                                         <Link to={`${match.url}/${index}`}>
-                                            <Card
-                                                header={`${candidate.first_name} ${candidate.last_name}`}
-                                                description={
-                                                    candidate.description
+                                            <CandidateCard
+                                                key={
+                                                    candidate.name +
+                                                    candidate.id
                                                 }
-                                                meta={candidate.skills}
+                                                name={candidate.name}
+                                                description={
+                                                    candidate.description || ''
+                                                }
+                                                skills={candidate.skills}
+                                                actions={
+                                                    <>
+                                                        <Button
+                                                            content={`View more about ${candidate.name}`}
+                                                            color="green"
+                                                        />
+                                                        <WarningModal />
+                                                    </>
+                                                }
                                             />
                                         </Link>
                                     );
                                 })}
                             </RowContainer>
-                        </>
-                    )}
-                </CandidatesContainer>
-                <Route
-                    path="/:prison/:candidate"
-                    component={CandidateProfile}
-                />
-            </RowContainer>
+                        </CandidatesContainer>
+                        <Route
+                            path="/:prison/:candidate"
+                            component={CandidateProfile}
+                        />
+                    </RowContainer>
+                </>
+            )}
         </ColumnContainer>
     );
 };
