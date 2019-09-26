@@ -5,6 +5,8 @@ import header from './Header';
 import signUp from './SignUp';
 import newProfile from './NewProfile';
 import accountSettingsForm from './AccountSettingsForm';
+import warningModal from "./WarningModal"
+
 
 export const NavBar = navBar;
 export const LogIn = logIn;
@@ -13,3 +15,4 @@ export const Header = header;
 export const SignUp = signUp;
 export const NewProfile = newProfile;
 export const AccountSettingsForm = accountSettingsForm;
+export const WarningModal = warningModal;
