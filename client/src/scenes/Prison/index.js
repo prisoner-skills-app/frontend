@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { small, medium } from '../../../globals/styles.js';
+import { small, medium } from '../../globals/styles.js';
 
 //Components
-import { ColumnContainer, RowContainer } from '../../../globals/components';
+import { ColumnContainer, RowContainer } from '../../globals/components';
 import { Button } from 'semantic-ui-react';
 import { Route, Link } from 'react-router-dom';
 import {
@@ -12,7 +12,7 @@ import {
     CandidateCard,
     WarningModal,
     LargeCard,
-} from '../../../components';
+} from '../../components';
 
 //Dummy Components
 const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
