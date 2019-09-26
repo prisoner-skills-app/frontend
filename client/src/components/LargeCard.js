@@ -24,14 +24,7 @@ const LargeCard = ({ history, location, match }) => {
 
     return (
         <ColumnContainer>
-            <Button
-                content="close"
-                basic
-                color="red"
-                onClick={() => history.push(`/${centerId}`)}
-                style={{ width: 150 }}
-            />
-            <Card style={{ width: 400 }}>
+            <Card style={{ width: 400, marginTop: 21 }}>
                 <Card.Content>
                     <Card.Header>{name}</Card.Header>
                     <Card.Description>{description}</Card.Description>
@@ -71,6 +64,13 @@ const LargeCard = ({ history, location, match }) => {
                     />
                 </Card.Content>
             </Card>
+            <Button
+                content="close"
+                basic
+                color="red"
+                onClick={() => history.push(`/${centerId}`)}
+                style={{ width: 150 }}
+            />
         </ColumnContainer>
     );
 };

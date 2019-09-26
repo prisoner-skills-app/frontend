@@ -22,7 +22,7 @@ import { useStateValue } from '../../state';
 import UserAccount from '../User';
 import AllCandidates from '../AllCandidates';
 import AllPrisons from '../AllPrisons';
-import PrisonProfile from '../Public/Prison';
+import PrisonProfile from '../Prison';
 import LoginSignup from '../LoginSignup';
 import Onboarding from '../Onboarding';
 import Home from '../Home';

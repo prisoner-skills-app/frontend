@@ -19,9 +19,6 @@ const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
 
 //Styled Components
 const CandidatesContainer = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
     padding: ${medium};
     width: ${props => props.size || '100%'};
 `;
@@ -74,12 +71,12 @@ const PrisonProfile = ({
                         <RowContainer>
                             <CandidatesContainer
                                 size={
-                                    location.pathname.indexOf('/', 1) !== -1
-                                        ? '50%'
+                                    location.pathname.indexOf('/', 2) !== -1
+                                        ? '60%'
                                         : '100%'
                                 }
                             >
-                                <RowContainer justify="space-between">
+                                <RowContainer justify="space-around">
                                     {candidates.map((candidate, index) => {
                                         return (
                                             <Link
@@ -105,7 +102,6 @@ const PrisonProfile = ({
                                                                 content={`View more about ${candidate.name}`}
                                                                 color="green"
                                                             />
-                                                            <WarningModal />
                                                         </>
                                                     }
                                                 />
