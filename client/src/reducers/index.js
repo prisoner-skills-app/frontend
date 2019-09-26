@@ -8,6 +8,8 @@ export default function reducer(state, action) {
                 user: action.payload,
             };
         case 'update_user':
+            console.log(state.user, action.payload);
+
             return {
                 ...state,
                 user: { ...state.user, ...action.payload },

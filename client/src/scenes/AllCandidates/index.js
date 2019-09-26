@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import { medium, large } from '../../globals/styles';
 
 //Components
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import { ColumnContainer } from '../../globals/components';
+import { Link } from 'react-router-dom';
 
 //Custom Components
-import { Header } from '../../components';
+import { Header, CandidateCard } from '../../components';
 
 //Styled Components
 const CandidatesContainer = styled.div`
@@ -16,6 +17,10 @@ const CandidatesContainer = styled.div`
     flex-flow: row wrap;
     justify-content: space-around;
     padding: ${medium};
+
+    .ui.card:first-child {
+        margin-top: 14px;
+    }
 `;
 
 const AllCandidates = () => {
@@ -24,8 +29,7 @@ const AllCandidates = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        let url =
-            'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/candidates';
+        let url = 'https://lsbw-liberated-skills.herokuapp.com/api/candidates';
 
         axios
             .get(url)
@@ -52,10 +56,22 @@ const AllCandidates = () => {
                 ) : (
                     candidates.map(candidate => {
                         return (
-                            <Card
-                                header={candidate.name}
+                            <CandidateCard
+                                key={candidate.name + candidate.id}
+                                name={candidate.name}
                                 description={candidate.description || ''}
-                                meta={candidate.skills}
+                                skills={candidate.skills}
+                                actions={
+                                    <Button
+                                        as={Link}
+                                        to={{
+                                            pathname: `/${candidate.centerId}/${candidate.id}`,
+                                            state: { candidate },
+                                        }}
+                                        content={`View more about ${candidate.name}`}
+                                        color="green"
+                                    />
+                                }
                             />
                         );
                     })
