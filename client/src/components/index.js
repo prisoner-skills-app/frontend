@@ -5,7 +5,9 @@ import header from './Header';
 import signUp from './SignUp';
 import newProfile from './NewProfile';
 import accountSettingsForm from './AccountSettingsForm';
+import warningModal from "./WarningModal"
 import createNewProfileButton from './CreateNewProfileButton';
+
 
 export const NavBar = navBar;
 export const LogIn = logIn;
@@ -15,3 +17,5 @@ export const SignUp = signUp;
 export const NewProfile = newProfile;
 export const AccountSettingsForm = accountSettingsForm;
 export const CreateNewProfileButton = createNewProfileButton;
+
+export const WarningModal = warningModal;
