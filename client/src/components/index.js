@@ -5,6 +5,7 @@ import header from './Header';
 import signUp from './SignUp';
 import newProfile from './NewProfile';
 import onBoardingComplete from "./OnboardingComplete";
+import createNewprisonProfile from "./CreateNewPrisonProfile"
 import accountSettingsForm from './AccountSettingsForm';
 import warningModal from './WarningModal';
 import createNewProfileButton from './CreateNewProfileButton';
@@ -20,6 +21,7 @@ export const LogIn = logIn;
 export const OnboardingForm = onboardingForm;
 export const Header = header;
 export const SignUp = signUp;
+export const CreateNewPrisonProfile = createNewprisonProfile;
 export const NewProfile = newProfile;
 export const OnboardingComplete = onBoardingComplete;
 export const AccountSettingsForm = accountSettingsForm;
