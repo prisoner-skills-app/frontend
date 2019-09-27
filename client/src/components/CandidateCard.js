@@ -20,7 +20,7 @@ const CandidateCard = ({ name, description, skills, actions }) => {
             <Card.Content>
                 <Card.Header>{name}</Card.Header>
                 <Card.Description>
-                    {description && description.slice(0, 200)}
+                    {description && description.slice(0, 150)}
                 </Card.Description>
 
                 <h4>Skills</h4>
