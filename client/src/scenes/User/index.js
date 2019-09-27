@@ -31,7 +31,7 @@ const UserAccount = ({ history }) => {
         setIsLoading(true);
         //let prisonId = location.pathname;
         //let url = `api/prions/${prisonId}`;
-        if (candidates == 0) {
+        if (!candidates || candidates.length == 0) {
             let url = `https://lsbw-liberated-skills.herokuapp.com/api/centers/${user.id}`;
             axios
                 .get(url)

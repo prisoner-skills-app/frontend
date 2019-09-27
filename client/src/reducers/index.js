@@ -24,10 +24,18 @@ export default function reducer(state, action) {
             window.localStorage.removeItem('user');
             return {};
         case 'update_candidates':
-            return {
-                ...state,
-                candidates: [...state.candidates, action.payload],
-            };
+            if (state.candidates) {
+                return {
+                    ...state,
+                    candidates: [...state.candidates, action.payload],
+                };
+            } else {
+                return {
+                    ...state,
+                    candidates: [...action.payload],
+                };
+            }
+
         case 'edit_candidates':
             let updatedCandidates = state.candidates.map(c => {
                 if (c.id == action.payload.id) {
@@ -63,9 +71,14 @@ export default function reducer(state, action) {
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
 
-            let candidates = state.candidates.filter(
-                c => c.id === action.payload
-            );
+            let candidates = state.candidates.filter(c => {
+                console.log(action.payload);
+                console.log(c);
+
+                return c.id !== action.payload;
+            });
+
+            console.log(candidates);
 
             return {
                 ...state,

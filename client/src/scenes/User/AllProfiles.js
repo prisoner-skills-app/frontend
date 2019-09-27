@@ -73,7 +73,10 @@ const AllProfiles = ({
                                                 basic
                                                 color="green"
                                             />
-                                            <WarningModal id={candidate.id} />
+                                            <WarningModal
+                                                id={candidate.id}
+                                                name={candidate.name}
+                                            />
                                         </>
                                     }
                                 />
