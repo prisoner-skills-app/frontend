@@ -10,7 +10,7 @@ import { ColumnContainer } from '../../globals/components';
 import { Link } from 'react-router-dom';
 
 //Custom Components
-import { Header, CandidateCard } from '../../components';
+import { Header, CandidateCard, SearchBar, Dropdown } from '../../components';
 
 //Styled Components
 const CandidatesContainer = styled.div`
@@ -53,7 +53,11 @@ const AllCandidates = () => {
 
     return (
         <ColumnContainer align="stretch">
-            <Header title="All Candidates" />
+            <Header
+                title="All Candidates"
+                searchBar={<SearchBar />}
+                dropDown={<Dropdown />}
+            />
             <CandidatesContainer>
                 {isLoading ? (
                     <h1>Loading</h1>
