@@ -7,7 +7,7 @@ import { RowContainer, ColumnContainer } from '../globals/components';
 
 import styled from 'styled-components';
 
-const LargeCard = ({ history, location, match }) => {
+const LargeCard = props => {
     let {
         name,
         description,
@@ -16,21 +16,28 @@ const LargeCard = ({ history, location, match }) => {
         paroleDate,
         skills,
         centerId,
-    } = location.state.candidate;
+        history,
+        location,
+        match,
+        noButton = false,
+    } = props;
+
+    if (location && location.state) {
+        name = location.state.candidate.name;
+        description = location.state.candidate.description;
+        education = location.state.candidate.education;
+        availability = location.state.candidate.availability;
+        paroleDate = location.state.candidate.paroleDate;
+        skills = location.state.candidate.skills;
+        centerId = location.state.candidate.centerId;
+    }
 
     console.log(location);
 
-    let splitSkills = skills.split(',');
+    let splitSkills = skills && skills.split(',');
 
     return (
         <ColumnContainer>
-            <Button
-                content="close"
-                basic
-                color="red"
-                onClick={() => history.push(`/${centerId}`)}
-                style={{ width: 150 }}
-            />
             <Card style={{ width: 400 }}>
                 <Card.Content>
                     <Card.Header>{name}</Card.Header>
@@ -38,7 +45,7 @@ const LargeCard = ({ history, location, match }) => {
                 </Card.Content>
                 <Card.Content>
                     <ColumnContainer>
-                        <RowContainer>
+                        <RowContainer justify="space-between">
                             <ColumnContainer>
                                 <h4>Education</h4>
                                 {education}
@@ -52,9 +59,10 @@ const LargeCard = ({ history, location, match }) => {
                         {availability}
                         <RowContainer>
                             <h4>Skills</h4>
-                            {splitSkills.map((skill, i) => {
-                                return <Label>{skill}</Label>;
-                            })}
+                            {splitSkills &&
+                                splitSkills.map((skill, i) => {
+                                    return <Label>{skill}</Label>;
+                                })}
                         </RowContainer>
                     </ColumnContainer>
                 </Card.Content>
@@ -67,10 +75,20 @@ const LargeCard = ({ history, location, match }) => {
                 >
                     <Button
                         content="Request to Hire"
+                        color="green"
                         onClick={() => alert('Hiring!')}
                     />
                 </Card.Content>
             </Card>
+            {!noButton && (
+                <Button
+                    content="close"
+                    basic
+                    color="red"
+                    onClick={() => history.push(`/${centerId}`)}
+                    style={{ width: 150 }}
+                />
+            )}
         </ColumnContainer>
     );
 };

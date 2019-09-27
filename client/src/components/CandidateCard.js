@@ -6,18 +6,21 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CandidateCard = ({ name, description, skills, actions }) => {
-    let splitSkills = skills.split(',');
+    let splitSkills = skills && skills.split(',');
 
     return (
-        <Card style={{ height: 300 }}>
+        <Card style={{ height: 300, marginBottom: 20, marginRight: 30 }}>
             <Card.Content>
                 <Card.Header>{name}</Card.Header>
-                <Card.Description>{description}</Card.Description>
+                <Card.Description>
+                    {description && description.slice(0, 200)}
+                </Card.Description>
 
                 <h4>Skills</h4>
-                {splitSkills.map((skill, i) => {
-                    return <Label>{skill}</Label>;
-                })}
+                {splitSkills &&
+                    splitSkills.map((skill, i) => {
+                        return <Label>{skill}</Label>;
+                    })}
             </Card.Content>
             <Card.Content
                 style={{

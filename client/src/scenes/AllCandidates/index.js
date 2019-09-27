@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { medium, large } from '../../globals/styles';
+import { useStateValue } from '../../state';
 
 //Components
 import { Card, Button } from 'semantic-ui-react';
@@ -15,7 +16,9 @@ import { Header, CandidateCard } from '../../components';
 const CandidatesContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
     padding: ${medium};
 
     .ui.card:first-child {
@@ -26,6 +29,7 @@ const CandidatesContainer = styled.div`
 const AllCandidates = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [candidates, setCandidates] = useState([]);
+    const [{ search, state }, dispatch] = useStateValue();
 
     useEffect(() => {
         setIsLoading(true);

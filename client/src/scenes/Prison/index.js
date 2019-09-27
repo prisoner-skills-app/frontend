@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { small, medium } from '../../../globals/styles.js';
+import { small, medium } from '../../globals/styles.js';
 
 //Components
-import { ColumnContainer, RowContainer } from '../../../globals/components';
-import { Button } from 'semantic-ui-react';
+import { ColumnContainer, RowContainer } from '../../globals/components';
+import { Button, Divider } from 'semantic-ui-react';
 import { Route, Link } from 'react-router-dom';
 import {
     Header,
     CandidateCard,
     WarningModal,
     LargeCard,
-} from '../../../components';
+} from '../../components';
 
 //Dummy Components
 const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
 
 //Styled Components
 const CandidatesContainer = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    padding: ${medium};
     width: ${props => props.size || '100%'};
 `;
 
@@ -69,17 +65,17 @@ const PrisonProfile = ({
                 <>
                     <Header title={prison.name} backButton />
                     <ColumnContainer padding="2em">
-                        <h2>Candidates</h2>
-
                         <RowContainer>
                             <CandidatesContainer
                                 size={
-                                    location.pathname.indexOf('/', 1) !== -1
-                                        ? '50%'
+                                    location.pathname.indexOf('/', 2) !== -1
+                                        ? '60%'
                                         : '100%'
                                 }
                             >
-                                <RowContainer justify="space-between">
+                                <h2>Candidates</h2>
+
+                                <RowContainer justify="flex-start">
                                     {candidates.map((candidate, index) => {
                                         return (
                                             <Link
@@ -105,7 +101,6 @@ const PrisonProfile = ({
                                                                 content={`View more about ${candidate.name}`}
                                                                 color="green"
                                                             />
-                                                            <WarningModal />
                                                         </>
                                                     }
                                                 />
@@ -114,10 +109,17 @@ const PrisonProfile = ({
                                     })}
                                 </RowContainer>
                             </CandidatesContainer>
-                            <Route
-                                path="/:prison/:candidate"
-                                component={LargeCard}
-                            />
+                            <ColumnContainer>
+                                <Route
+                                    path="/:prison/:candidate"
+                                    render={props => (
+                                        <>
+                                            <h2>More Info</h2>
+                                            <LargeCard {...props} />
+                                        </>
+                                    )}
+                                />
+                            </ColumnContainer>
                         </RowContainer>
                     </ColumnContainer>
                 </>

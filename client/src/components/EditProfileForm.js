@@ -39,12 +39,12 @@ const App = ({
         <SemanticForm as={Form} onSubmit={handleSubmit}>
             {isSubmitting && (
                 <Dimmer active page>
-                    <Loader>Creating New Profile</Loader>
+                    <Loader>Editing Profile</Loader>
                 </Dimmer>
             )}
             <StyledForm>
                 <div>
-                    <h2>Create New Profile</h2>
+                    <h2>Edit Profile</h2>
                     <p>
                         <strong>Prisoner name</strong>
                     </p>
@@ -109,7 +109,7 @@ const App = ({
                         cols="30"
                         rows="9"
                         placeholder="Enter Message"
-                        value={values.message}
+                        value={values.description}
                         component="textarea"
                     />
                 </div>
@@ -125,15 +125,22 @@ const App = ({
                     />
                 </div>
                 <SemanticForm.Button type="submit" color="green">
-                    Create Profile
+                    Save Profile
                 </SemanticForm.Button>
             </StyledForm>
         </SemanticForm>
     );
 };
 
-const CreateNew = withFormik({
-    mapPropsToValues({ name, skills, education, date, description, check }) {
+const EditProfile = withFormik({
+    mapPropsToValues({
+        name,
+        skills,
+        education,
+        paroleDate: date,
+        description,
+        check,
+    }) {
         return {
             name: name || '',
             skills: skills || '',
@@ -162,7 +169,7 @@ const CreateNew = withFormik({
         setSubmitting(true);
 
         axiosWithAuth()
-            .post('/candidates', {
+            .put(`/candidates/${props.location.state.candidate.id}`, {
                 name: values.name,
                 availability: 'today',
                 skills: values.skills,
@@ -177,7 +184,7 @@ const CreateNew = withFormik({
                 setSubmitting(false);
 
                 props.dispatch({
-                    type: 'update_candidates',
+                    type: 'edit_candidates',
                     payload: response.data,
                 });
 
@@ -191,4 +198,4 @@ const CreateNew = withFormik({
     },
 })(App);
 
-export default withState(withRouter(CreateNew));
+export default withState(withRouter(EditProfile));

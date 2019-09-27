@@ -107,7 +107,7 @@ const LogIn = withFormik({
         console.log(props);
         axios
             .post(
-                'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/auth/login',
+                'https://lsbw-liberated-skills.herokuapp.com/api/auth/login',
                 { email: values.email, password: values.password }
             )
             .then(response => {
