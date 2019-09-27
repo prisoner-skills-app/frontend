@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Grid, Divider, Segment } from 'semantic-ui-react';
 
 //Custom Components
-import { LogIn, SignUp } from '../../components';
+import { LogIn, SignUp, Header } from '../../components';
 
 //Styled Components
 import { ColumnContainer } from '../../globals/components';
@@ -18,25 +18,28 @@ const FormContainer = styled(Segment)`
     padding: ${small};
 `;
 
-//Dummy
-const Header = () => <h1>Header</h1>;
-
 const LoginSignup = () => {
     return (
-        <ColumnContainer align="center">
-            <Header />
-            <FormContainer basic>
-                <Grid columns={2} relaxed="very" stackable>
-                    <Grid.Column>
-                        <LogIn />
-                    </Grid.Column>
-                    <Grid.Column>
-                        <SignUp />
-                    </Grid.Column>
-                </Grid>
+        <ColumnContainer>
+            <Header
+                justify="center"
+                title={`Regain believes in every prisoner's future. \n Thank you for helping!`}
+                size="3em"
+            />
+            <ColumnContainer align="center">
+                <FormContainer basic>
+                    <Grid columns={2} relaxed="very" stackable>
+                        <Grid.Column>
+                            <LogIn />
+                        </Grid.Column>
+                        <Grid.Column>
+                            <SignUp />
+                        </Grid.Column>
+                    </Grid>
 
-                <Divider vertical>Or</Divider>
-            </FormContainer>
+                    <Divider vertical>Or</Divider>
+                </FormContainer>
+            </ColumnContainer>
         </ColumnContainer>
     );
 };

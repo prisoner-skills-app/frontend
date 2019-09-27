@@ -145,7 +145,9 @@ const App = ({
                         <option value="WY">Wyoming</option>
                     </Field>
                 </div>
-                <SemanticForm.Button type="submit">Finish!</SemanticForm.Button>
+                <SemanticForm.Button type="submit" color="green">
+                    Finish!
+                </SemanticForm.Button>
             </StyledForm>
         </SemanticForm>
     );
@@ -174,11 +176,13 @@ const OnboardingForm = withFormik({
 
     handleSubmit(values, { props, setEffect }) {
         console.log('Submitting Onboarding Form');
+        console.log(props);
         axiosWithAuth()
-            .post('profile', {
-                prisonName: values.name,
+            .put('/profile', {
+                email: props.state.user.email,
+                name: values.name,
                 city: values.city,
-                state: values.state,
+                state: values.selectOption,
                 phone: values.phone,
             })
             .then(response => {
@@ -194,4 +198,4 @@ const OnboardingForm = withFormik({
     },
 })(App);
 
-export default OnboardingForm;
+export default withState(withRouter(OnboardingForm));

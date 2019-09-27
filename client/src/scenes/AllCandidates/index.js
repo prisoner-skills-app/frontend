@@ -2,30 +2,38 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { medium, large } from '../../globals/styles';
+import { useStateValue } from '../../state';
 
 //Components
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import { ColumnContainer } from '../../globals/components';
+import { Link } from 'react-router-dom';
 
 //Custom Components
-import { Header } from '../../components';
+import { Header, CandidateCard, SearchBar, Dropdown } from '../../components';
 
 //Styled Components
 const CandidatesContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
     padding: ${medium};
+
+    .ui.card:first-child {
+        margin-top: 14px;
+    }
 `;
 
 const AllCandidates = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [candidates, setCandidates] = useState([]);
+    const [{ search, state }, dispatch] = useStateValue();
 
     useEffect(() => {
         setIsLoading(true);
-        let url =
-            'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/candidates';
+        let url = 'https://lsbw-liberated-skills.herokuapp.com/api/candidates';
 
         axios
             .get(url)
@@ -45,20 +53,39 @@ const AllCandidates = () => {
 
     return (
         <ColumnContainer align="stretch">
-            <Header title="All Candidates" />
+            <Header title="All Candidates" searchBar={<SearchBar />} />
             <CandidatesContainer>
                 {isLoading ? (
                     <h1>Loading</h1>
                 ) : (
-                    candidates.map(candidate => {
-                        return (
-                            <Card
-                                header={candidate.name}
-                                description={candidate.description || ''}
-                                meta={candidate.skills}
-                            />
-                        );
-                    })
+                    candidates
+                        .filter(c => {
+                            if (search != null) {
+                                return c.skills.includes(`${search}`);
+                            }
+                            return c;
+                        })
+                        .map(candidate => {
+                            return (
+                                <CandidateCard
+                                    key={candidate.name + candidate.id}
+                                    name={candidate.name}
+                                    description={candidate.description || ''}
+                                    skills={candidate.skills}
+                                    actions={
+                                        <Button
+                                            as={Link}
+                                            to={{
+                                                pathname: `/${candidate.centerId}/${candidate.id}`,
+                                                state: { candidate },
+                                            }}
+                                            content={`View more about ${candidate.name}`}
+                                            color="green"
+                                        />
+                                    }
+                                />
+                            );
+                        })
                 )}
             </CandidatesContainer>
         </ColumnContainer>

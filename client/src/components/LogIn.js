@@ -107,13 +107,15 @@ const LogIn = withFormik({
         console.log(props);
         axios
             .post(
-                'https://cors-anywhere.herokuapp.com/https://lsbw-liberated-skills.herokuapp.com/api/auth/login',
+                'https://lsbw-liberated-skills.herokuapp.com/api/auth/login',
                 { email: values.email, password: values.password }
             )
             .then(response => {
                 if (response.status == 200) {
-                    window.localStorage.setItem('token', response.data.token);
-                    window.localStorage.setItem('user_id', response.data.id);
+                    window.localStorage.setItem(
+                        'user',
+                        JSON.stringify(response.data)
+                    );
                     props.dispatch({
                         type: 'set_user',
                         payload: response.data,
@@ -129,15 +131,6 @@ const LogIn = withFormik({
                 console.log(error);
                 setSubmitting(false);
             });
-
-        // setTimeout(() => {
-        //     if (values.email === 'luisocasio03@gmail.com') {
-        //         setErrors({ email: 'Email already in use' });
-        //     } else {
-        //         resetForm();
-        //     }
-        //     setSubmitting(false);
-        // }, 2000);
         console.log(values);
     },
 })(Login);
