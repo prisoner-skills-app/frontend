@@ -31,6 +31,18 @@ export default function reducer(state, action) {
                 ...state,
                 candidates: [...state.candidates, action.payload],
             };
+        case 'edit_candidates':
+            let updatedCandidates = state.candidates.map(c => {
+                if (c.id == action.payload.id) {
+                    return action.payload;
+                }
+                return c;
+            });
+
+            return {
+                ...state,
+                candidates: updatedCandidates,
+            };
         case 'set_user_candidates':
             return {
                 ...state,

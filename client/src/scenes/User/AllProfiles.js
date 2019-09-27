@@ -80,10 +80,6 @@ const AllProfiles = ({
                             );
                         })}
                 </CandidatesContainer>
-                <Route
-                    path="/:prison/:candidate"
-                    component={CandidateProfile}
-                />
             </RowContainer>
         </>
     );

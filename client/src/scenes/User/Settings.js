@@ -18,7 +18,7 @@ const Settings = ({ history }) => {
             menuItem: 'Account Settings',
             render: () => (
                 <Tab.Pane as="div">
-                    <AccountSettingsForm />
+                    <AccountSettingsForm history={history} />
                 </Tab.Pane>
             ),
         },

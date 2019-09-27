@@ -16,6 +16,7 @@ const Button = styled.div`
     width: 290px;
     margin-right: ${large};
     margin-bottom: 10px;
+    margin-top: 14px;
     h4{
         text-align: center;
     }

@@ -12,7 +12,9 @@ const CandidateCard = ({ name, description, skills, actions }) => {
         <Card style={{ height: 300, marginBottom: 20 }}>
             <Card.Content>
                 <Card.Header>{name}</Card.Header>
-                <Card.Description>{description}</Card.Description>
+                <Card.Description>
+                    {description && description.slice(0, 200)}
+                </Card.Description>
 
                 <h4>Skills</h4>
                 {splitSkills &&
