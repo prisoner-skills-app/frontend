@@ -22,10 +22,7 @@ export default function reducer(state, action) {
             };
         case 'logout_user':
             window.localStorage.removeItem('user');
-            return {
-                ...state,
-                user: {},
-            };
+            return {};
         case 'update_candidates':
             return {
                 ...state,

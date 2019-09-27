@@ -19,7 +19,6 @@ const CandidateProfile = () => <h1>Candidate Profile Route</h1>;
 
 //Styled Components
 const CandidatesContainer = styled.div`
-    padding: ${medium};
     width: ${props => props.size || '100%'};
 `;
 
@@ -66,8 +65,6 @@ const PrisonProfile = ({
                 <>
                     <Header title={prison.name} backButton />
                     <ColumnContainer padding="2em">
-                        <h2>Candidates</h2>
-
                         <RowContainer>
                             <CandidatesContainer
                                 size={
@@ -76,7 +73,9 @@ const PrisonProfile = ({
                                         : '100%'
                                 }
                             >
-                                <RowContainer justify="space-around">
+                                <h2>Candidates</h2>
+
+                                <RowContainer justify="flex-start">
                                     {candidates.map((candidate, index) => {
                                         return (
                                             <Link
@@ -110,18 +109,17 @@ const PrisonProfile = ({
                                     })}
                                 </RowContainer>
                             </CandidatesContainer>
-                            <Divider
-                                vertical
-                                style={{
-                                    zIndex: -1,
-                                    position: 'fixed',
-                                    left: '57%',
-                                }}
-                            />
-                            <Route
-                                path="/:prison/:candidate"
-                                component={LargeCard}
-                            />
+                            <ColumnContainer>
+                                <Route
+                                    path="/:prison/:candidate"
+                                    render={props => (
+                                        <>
+                                            <h2>More Info</h2>
+                                            <LargeCard {...props} />
+                                        </>
+                                    )}
+                                />
+                            </ColumnContainer>
                         </RowContainer>
                     </ColumnContainer>
                 </>

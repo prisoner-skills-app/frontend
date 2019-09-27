@@ -38,7 +38,7 @@ const LargeCard = props => {
 
     return (
         <ColumnContainer>
-            <Card style={{ width: 400, marginTop: 21 }}>
+            <Card style={{ width: 400 }}>
                 <Card.Content>
                     <Card.Header>{name}</Card.Header>
                     <Card.Description>{description}</Card.Description>
