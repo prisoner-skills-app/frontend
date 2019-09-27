@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 //Components
-import { ColumnContainer } from '../../globals/components';
-import { Header } from '../../components';
 import { Form, Icon, Input, Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
-import faker from 'faker';
-import _ from 'lodash';
-import { isAbsolute } from 'path';
-import 'semantic-ui-css/semantic.min.css';
 
 const MyForm = styled.div`
-    width: 600px;
+    max-width: 400px;
     margin: 20px;
     #search {
         background-color: transparent;
@@ -35,7 +29,7 @@ const SearchBar = () => {
                     <Input
                         id="search"
                         value={skill}
-                        placeholder=" ⍰ Search Skills "
+                        placeholder="Search Skills "
                         color="white"
                         onChange={event => setSkill(event.target.value)}
                         action={{
@@ -51,34 +45,4 @@ const SearchBar = () => {
     );
 };
 
-const addressDefinitions = faker.definitions.address;
-const stateOptions = _.map(addressDefinitions.state, (state, index) => ({
-    key: addressDefinitions.state_abbr[index],
-    text: state,
-    value: addressDefinitions.state_abbr[index],
-}));
-
-const DropDown = () => (
-    //<List>
-    <Dropdown
-        placeholder="Search States"
-        search
-        selection
-        options={stateOptions}
-    />
-    //</List>
-);
-
-const Home = () => {
-    return (
-        <ColumnContainer>
-            <Header
-                title="All Candidates"
-                searchBar={<SearchBar />}
-                dropDown={<DropDown />}
-            />
-        </ColumnContainer>
-    );
-};
-
-export default Home;
+export default SearchBar;

@@ -9,6 +9,8 @@ import warningModal from './WarningModal';
 import createNewProfileButton from './CreateNewProfileButton';
 import largeCard from './LargeCard';
 import candidateCard from './CandidateCard';
+import searchBar from './SearchBar';
+import dropDown from './DropDown';
 
 export const NavBar = navBar;
 export const LogIn = logIn;
@@ -21,3 +23,5 @@ export const CreateNewProfileButton = createNewProfileButton;
 export const LargeCard = largeCard;
 export const WarningModal = warningModal;
 export const CandidateCard = candidateCard;
+export const Dropdown = dropDown;
+export const SearchBar = searchBar;
