@@ -3,17 +3,14 @@ import axios from 'axios';
 
 //Components
 import { ColumnContainer } from '../../globals/components';
-import { Header } from '../../components';
-
-//Dummy Components
-const PrisonTable = () => <h1>Prison Table</h1>;
+import { Header, Table } from '../../components';
 
 const AllPrisons = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [prisons, setPrisons] = useState([]);
 
     useEffect(() => {
-        let url = '';
+        let url = 'https://lsbw-liberated-skills.herokuapp.com/api/centers';
 
         axios
             .get(url)
@@ -34,7 +31,9 @@ const AllPrisons = () => {
     return (
         <ColumnContainer align="stretch">
             <Header title="All Prisons" />
-            <PrisonTable />
+            <ColumnContainer padding="2em">
+                <Table prisons={prisons} />
+            </ColumnContainer>
         </ColumnContainer>
     );
 };
