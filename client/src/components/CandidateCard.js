@@ -9,7 +9,14 @@ const CandidateCard = ({ name, description, skills, actions }) => {
     let splitSkills = skills && skills.split(',');
 
     return (
-        <Card style={{ height: 300, marginBottom: 20, marginRight: 30 }}>
+        <Card
+            style={{
+                height: 300,
+                maxWidth: 280,
+                marginBottom: 20,
+                marginRight: 30,
+            }}
+        >
             <Card.Content>
                 <Card.Header>{name}</Card.Header>
                 <Card.Description>

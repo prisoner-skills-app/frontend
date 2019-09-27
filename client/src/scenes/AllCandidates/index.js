@@ -53,36 +53,39 @@ const AllCandidates = () => {
 
     return (
         <ColumnContainer align="stretch">
-            <Header
-                title="All Candidates"
-                searchBar={<SearchBar />}
-                dropDown={<Dropdown />}
-            />
+            <Header title="All Candidates" searchBar={<SearchBar />} />
             <CandidatesContainer>
                 {isLoading ? (
                     <h1>Loading</h1>
                 ) : (
-                    candidates.map(candidate => {
-                        return (
-                            <CandidateCard
-                                key={candidate.name + candidate.id}
-                                name={candidate.name}
-                                description={candidate.description || ''}
-                                skills={candidate.skills}
-                                actions={
-                                    <Button
-                                        as={Link}
-                                        to={{
-                                            pathname: `/${candidate.centerId}/${candidate.id}`,
-                                            state: { candidate },
-                                        }}
-                                        content={`View more about ${candidate.name}`}
-                                        color="green"
-                                    />
-                                }
-                            />
-                        );
-                    })
+                    candidates
+                        .filter(c => {
+                            if (search != null) {
+                                return c.skills.includes(`${search}`);
+                            }
+                            return c;
+                        })
+                        .map(candidate => {
+                            return (
+                                <CandidateCard
+                                    key={candidate.name + candidate.id}
+                                    name={candidate.name}
+                                    description={candidate.description || ''}
+                                    skills={candidate.skills}
+                                    actions={
+                                        <Button
+                                            as={Link}
+                                            to={{
+                                                pathname: `/${candidate.centerId}/${candidate.id}`,
+                                                state: { candidate },
+                                            }}
+                                            content={`View more about ${candidate.name}`}
+                                            color="green"
+                                        />
+                                    }
+                                />
+                            );
+                        })
                 )}
             </CandidatesContainer>
         </ColumnContainer>

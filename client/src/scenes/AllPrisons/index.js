@@ -3,7 +3,7 @@ import axios from 'axios';
 
 //Components
 import { ColumnContainer } from '../../globals/components';
-import { Header, Table } from '../../components';
+import { Header, Table, Dropdown } from '../../components';
 
 const AllPrisons = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +30,7 @@ const AllPrisons = () => {
 
     return (
         <ColumnContainer align="stretch">
-            <Header title="All Prisons" />
+            <Header title="All Prisons" dropDown={<Dropdown />} />
             <ColumnContainer padding="2em">
                 <Table prisons={prisons} />
             </ColumnContainer>

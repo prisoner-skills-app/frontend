@@ -76,6 +76,17 @@ export default function reducer(state, action) {
                 ...state,
                 preview: action.payload,
             };
+        case 'update_search':
+            return {
+                ...state,
+                search: action.payload,
+            };
+
+        case 'update_state':
+            return {
+                ...state,
+                state: action.payload,
+            };
 
         default:
             return state;

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Form, Icon, Input, Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 
+import { useStateValue } from '../state';
+
 const MyForm = styled.div`
     max-width: 400px;
     margin: 20px;
@@ -21,6 +23,7 @@ const MyForm = styled.div`
 
 const SearchBar = () => {
     const [skill, setSkill] = useState('');
+    const [{ search }, dispatch] = useStateValue();
 
     return (
         <MyForm>
@@ -28,10 +31,15 @@ const SearchBar = () => {
                 <Form.Field>
                     <Input
                         id="search"
-                        value={skill}
+                        value={search}
                         placeholder="Search Skills "
                         color="white"
-                        onChange={event => setSkill(event.target.value)}
+                        onChange={event =>
+                            dispatch({
+                                type: 'update_search',
+                                payload: event.target.value,
+                            })
+                        }
                         action={{
                             color: '#ffffff',
                             labelPosition: 'right',
