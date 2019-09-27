@@ -48,8 +48,9 @@ export default function reducer(state, action) {
                 state: {},
             };
         case 'delete_candidate':
-            axiosWithAuth(`/candidates/${action.payload}`)
-                .delete()
+            console.log('Inside case delete');
+            axiosWithAuth()
+                .delete(`/candidates/${action.payload}`)
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
 

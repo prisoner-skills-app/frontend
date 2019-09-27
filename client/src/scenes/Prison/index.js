@@ -5,7 +5,7 @@ import { small, medium } from '../../globals/styles.js';
 
 //Components
 import { ColumnContainer, RowContainer } from '../../globals/components';
-import { Button } from 'semantic-ui-react';
+import { Button, Divider } from 'semantic-ui-react';
 import { Route, Link } from 'react-router-dom';
 import {
     Header,
@@ -110,6 +110,14 @@ const PrisonProfile = ({
                                     })}
                                 </RowContainer>
                             </CandidatesContainer>
+                            <Divider
+                                vertical
+                                style={{
+                                    zIndex: -1,
+                                    position: 'fixed',
+                                    left: '57%',
+                                }}
+                            />
                             <Route
                                 path="/:prison/:candidate"
                                 component={LargeCard}

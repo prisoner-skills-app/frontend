@@ -6,6 +6,7 @@ import { useStateValue } from '../state';
 const WarningModal = ({ id }) => {
     const [state, dispatch] = useStateValue();
 
+    console.log(id);
     return (
         <Modal
             trigger={
