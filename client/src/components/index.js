@@ -9,6 +9,7 @@ import warningModal from './WarningModal';
 import createNewProfileButton from './CreateNewProfileButton';
 import largeCard from './LargeCard';
 import candidateCard from './CandidateCard';
+import table from './Table';
 import editProfileForm from './EditProfileForm';
 
 export const NavBar = navBar;
@@ -23,3 +24,4 @@ export const LargeCard = largeCard;
 export const WarningModal = warningModal;
 export const CandidateCard = candidateCard;
 export const EditProfileForm = editProfileForm;
+export const Table = table;
